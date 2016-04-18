@@ -53,6 +53,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_fragment_layout, new HomeFragment());
+        ft.commit();
+
+
+
 //        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 //        if (viewPager != null) {
 //            setupViewPager(viewPager);
@@ -60,13 +66,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new SettingFragment(), "Settings");
-        adapter.addFragment(new HomeFragment(), "Homes");
-        //adapter.addFragment(new CheeseListFragment(), "Category 3");
-        viewPager.setAdapter(adapter);
-    }
+//    private void setupViewPager(ViewPager viewPager) {
+//        Adapter adapter = new Adapter(getSupportFragmentManager());
+//        adapter.addFragment(new SettingFragment(), "Settings");
+//        adapter.addFragment(new HomeFragment(), "Homes");
+//        //adapter.addFragment(new CheeseListFragment(), "Category 3");
+//        viewPager.setAdapter(adapter);
+//    }
 
     @Override
     public void onBackPressed() {
@@ -142,32 +148,32 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    static class Adapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragments = new ArrayList<>();
-        private final List<String> mFragmentTitles = new ArrayList<>();
-
-        public Adapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragments.add(fragment);
-            mFragmentTitles.add(title);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitles.get(position);
-        }
-    }
+//    static class Adapter extends FragmentPagerAdapter {
+//        private final List<Fragment> mFragments = new ArrayList<>();
+//        private final List<String> mFragmentTitles = new ArrayList<>();
+//
+//        public Adapter(FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        public void addFragment(Fragment fragment, String title) {
+//            mFragments.add(fragment);
+//            mFragmentTitles.add(title);
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            return mFragments.get(position);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mFragments.size();
+//        }
+//
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            return mFragmentTitles.get(position);
+//        }
+//    }
 }
