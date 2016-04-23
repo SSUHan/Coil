@@ -6,9 +6,19 @@
     tools:context="com.brianandroid.myzzung.coli.ui.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+
     <TextView
+        android:id="@+id/home_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="home fragment" />
+
+    <Button
+        android:id="@+id/home_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="통신시작하기"
+        android:visibility="visible" />
 
 </LinearLayout>
