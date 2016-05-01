@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.brianandroid.myzzung.coli.R;
 
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new SettingFragment();
             title = "Settings";
         }else if(id == R.id.nav_community){
+            Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
         }
         if (fragment != null) {

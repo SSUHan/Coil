@@ -3,6 +3,7 @@ package com.brianandroid.myzzung.coli.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -59,6 +61,16 @@ public class HomeFragment extends Fragment {
 
             }
         });
+        new MaterialDialog.Builder(getActivity())
+                .title("Input")
+                .content("Contents")
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input("hint",null, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        // Do something
+                    }
+                }).show();
 
 
 
