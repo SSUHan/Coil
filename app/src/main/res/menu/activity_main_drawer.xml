@@ -6,19 +6,19 @@
             android:id="@+id/nav_home"
             android:checked="true"
             android:icon="@drawable/ic_menu_camera"
-            android:title="전체화면" />
+            android:title="@string/nav_home" />
         <item
             android:id="@+id/nav_mycoupon"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="내 쿠폰함" />
+            android:title="@string/nav_mycoupon" />
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="검색" />
+            android:title="@string/nav_search" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
-            android:title="설정" />
+            android:title="@string/nav_settings" />
 
         <item android:title="Communicate"
             >
@@ -26,7 +26,7 @@
                 <item
                     android:id="@+id/nav_community"
                     android:icon="@drawable/ic_menu_share"
-                    android:title="커뮤니티"/>
+                    android:title="@string/nav_community"/>
             </menu>
 
         </item>

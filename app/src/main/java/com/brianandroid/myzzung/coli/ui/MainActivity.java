@@ -111,14 +111,15 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the camera action
             fragment = new HomeFragment();
-            title = "Homes";
+            title = getString(R.string.nav_home);
         } else if (id == R.id.nav_mycoupon) {
 
         } else if (id == R.id.nav_search) {
 
         } else if (id == R.id.nav_settings) {
             fragment = new SettingFragment();
-            title = "Settings";
+            title = getString(R.string.nav_settings);
+
         }else if(id == R.id.nav_community){
             Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
