@@ -6,10 +6,19 @@
     tools:context="com.brianandroid.myzzung.coli.ui.SettingFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:text="@string/hello_blank_fragment" />
+    <Button android:id="@+id/registrationButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="gcm token 받기" />
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/informationTextView"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/registrationProgressBar" />
 
 </LinearLayout>

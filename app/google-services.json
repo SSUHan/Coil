@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "41710498275",
+    "project_id": "coil-60f11"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41710498275:android:71a9cddf92be1db4",
+        "android_client_info": {
+          "package_name": "com.brianandroid.myzzung.coli"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxeSiC-93hKqnN0aHUBdNOV197wDUgWEo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
