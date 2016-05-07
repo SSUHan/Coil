@@ -7,5 +7,7 @@ import android.app.Application;
  */
 public class CoilApplication extends Application {
 
+    public String user_id;
+    public String user_pw;
 
 }

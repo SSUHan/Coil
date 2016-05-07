@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
 import com.brianandroid.myzzung.coli.volley.MyVolley;
 
@@ -28,7 +29,9 @@ import org.json.JSONObject;
  */
 public class HomeFragment extends Fragment {
 
-    TextView home_text = null;
+    private CoilApplication app;
+
+    private TextView home_text = null;
 
     private final String server_url = "http://ljs93kr.cafe24.com/coil/test_dir/coil_test.php";
 
@@ -42,11 +45,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        app = (CoilApplication) getActivity().getApplicationContext();
         final RequestQueue queue = MyVolley.getInstance(getActivity()).getRequestQueue();
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
 
         home_text = (TextView) rootView.findViewById(R.id.home_text);
+        home_text.setText(app.user_id+" "+app.user_pw);
         Button home_btn = (Button) rootView.findViewById(R.id.home_button);
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
