@@ -8,64 +8,42 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class JoinActivity extends AppCompatActivity {
 
-    private CoilApplication app;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        app = (CoilApplication) getApplicationContext();
+        setContentView(R.layout.activity_join);
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.join_email);
         //populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = (EditText) findViewById(R.id.join_password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                if (id == R.id.join || id == EditorInfo.IME_NULL) {
+                    attemptJoin();
                     return true;
                 }
                 return false;
             }
         });
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
-        mLoginFormView = findViewById(R.id.login_form);
-
     }
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
-    private void attemptLogin() {
+
+    private boolean attemptJoin() {
 
         // Reset errors.
         mEmailView.setError(null);
@@ -100,17 +78,15 @@ public class LoginActivity extends AppCompatActivity {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
+            return false;
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
 //            showProgress(true);
 //            mAuthTask = new UserLoginTask(email, password);
 //            mAuthTask.execute((Void) null);
-            app.user_id = email;
-            app.user_pw = password;
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
+
+            return true;
         }
     }
 
@@ -124,9 +100,14 @@ public class LoginActivity extends AppCompatActivity {
         return password.length() > 4;
     }
 
-    public void goJoin(View v){
-        Intent intent = new Intent(getApplicationContext(), JoinActivity.class);
-        startActivity(intent);
+    public void doJoin(View v){
+        if(attemptJoin()){
+//            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//            startActivity(intent);
+            finish();
+        }else{
+            Toast.makeText(JoinActivity.this, "wrong", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

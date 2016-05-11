@@ -7,15 +7,15 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.LoginActivity">
+    tools:context=".ui.JoinActivity">
 
     <ScrollView
-        android:id="@+id/login_form"
+        android:id="@+id/join_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/email_login_form"
+            android:id="@+id/email_join_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -33,7 +33,7 @@
                 android:layout_weight="1">
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/join_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -49,11 +49,11 @@
                 android:layout_weight="1">
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/join_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
-                    android:imeActionId="@+id/login"
+                    android:imeActionId="@+id/join"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
@@ -62,21 +62,13 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in"
-                android:textStyle="bold" />
 
             <Button
-                android:id="@+id/go_join_btn"
+                android:id="@+id/attempt_join_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="가입하러가기"
-                android:onClick="goJoin"
+                android:onClick="doJoin"
                 />
 
         </LinearLayout>

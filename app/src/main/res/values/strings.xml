@@ -15,7 +15,8 @@
     <string name="nav_search">설정</string>
     <string name="nav_settings">설정</string>
     <string name="nav_community">커뮤니티</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">접속하기</string>
+    <string name="title_activity_join">가입하기</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
