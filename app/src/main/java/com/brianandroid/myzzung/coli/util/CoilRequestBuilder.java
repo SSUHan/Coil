@@ -25,13 +25,13 @@ public class CoilRequestBuilder {
     public CoilRequestBuilder(Context context) throws JSONException {
         app = (CoilApplication) context.getApplicationContext();
         mRequestBody = new JSONObject();
-        //mRequestBody.put(ATTR_KEY_DEBUG_MODE, MapzipApplication.mDebugMode);
-        //mRequestBody.put(ATTR_KEY_BUILD_VERSION, app.getBuild_version());
+        mRequestBody.put(ATTR_KEY_DEBUG_MODE, app.debug_mode);
+        mRequestBody.put(ATTR_KEY_BUILD_VERSION, app.version_code);
     }
 
-    public JSONObject setCustomAttribute(String key, Object value) throws JSONException {
+    public CoilRequestBuilder setCustomAttribute(String key, Object value) throws JSONException {
         mRequestBody.put(key, value);
-        return this.mRequestBody;
+        return this;
     }
 
     public void showInside(){

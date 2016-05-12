@@ -18,6 +18,8 @@
     <string name="title_activity_login">접속하기</string>
     <string name="title_activity_join">가입하기</string>
 
+    <string name="volley_network_fail">인터넷 연결이 불안정합니다</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -30,4 +32,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+
 </resources>

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         View nav_header_view = navigationView.getHeaderView(0);
 
         TextView nav_header_id_text = (TextView) nav_header_view.findViewById(R.id.nav_header_id_text);
-        nav_header_id_text.setText(app.user_id+" "+app.user_pw);
+        nav_header_id_text.setText(app.user_id);
 
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

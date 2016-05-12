@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,9 +13,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.brianandroid.myzzung.coli.R;
+import com.brianandroid.myzzung.coli.util.CoilRequestBuilder;
+import com.brianandroid.myzzung.coli.util.SystemMain;
+import com.brianandroid.myzzung.coli.volley.MyVolley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class JoinActivity extends AppCompatActivity {
+
+    private final String TAG = "JoinActivity";
 
 
     // UI references.
@@ -80,11 +94,22 @@ public class JoinActivity extends AppCompatActivity {
             focusView.requestFocus();
             return false;
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-//            showProgress(true);
-//            mAuthTask = new UserLoginTask(email, password);
-//            mAuthTask.execute((Void) null);
+
+            final RequestQueue queue = MyVolley.getInstance(getApplicationContext()).getRequestQueue();
+            try {
+                CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
+                builder.setCustomAttribute("user_id", email)
+                        .setCustomAttribute("user_pw", password);
+                JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
+                        SystemMain.URL.URL_JOIN,
+                        builder.build(),
+                        networkSuccessListener(),
+                        networkErrorListener());
+
+                queue.add(myReq);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             return true;
         }
@@ -101,13 +126,34 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     public void doJoin(View v){
-        if(attemptJoin()){
-//            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//            startActivity(intent);
-            finish();
-        }else{
-            Toast.makeText(JoinActivity.this, "wrong", Toast.LENGTH_SHORT).show();
-        }
+        attemptJoin();
+    }
+    private Response.Listener<JSONObject> networkSuccessListener() {
+        return new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+                try {
+                    if(response.getBoolean("join")){
+                        Toast.makeText(JoinActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Toast.makeText(JoinActivity.this, response.getString("error_message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
 
+            }
+        };
+    }
+    private Response.ErrorListener networkErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), R.string.volley_network_fail, Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 }

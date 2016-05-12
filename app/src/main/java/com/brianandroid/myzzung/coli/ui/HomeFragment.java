@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
 
         home_text = (TextView) rootView.findViewById(R.id.home_text);
-        home_text.setText(app.user_id+" "+app.user_pw);
+        home_text.setText(app.user_id);
         Button home_btn = (Button) rootView.findViewById(R.id.home_button);
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -13,10 +14,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
+import com.brianandroid.myzzung.coli.util.CoilRequestBuilder;
+import com.brianandroid.myzzung.coli.util.SystemMain;
+import com.brianandroid.myzzung.coli.volley.MyVolley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private final String TAG = "LoginActivity";
 
     private CoilApplication app;
 
@@ -25,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -106,11 +122,22 @@ public class LoginActivity extends AppCompatActivity {
 //            showProgress(true);
 //            mAuthTask = new UserLoginTask(email, password);
 //            mAuthTask.execute((Void) null);
-            app.user_id = email;
-            app.user_pw = password;
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
+            final RequestQueue queue = MyVolley.getInstance(getApplicationContext()).getRequestQueue();
+            try {
+                CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
+                builder.setCustomAttribute("user_id", email)
+                        .setCustomAttribute("user_pw", password);
+                JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
+                        SystemMain.URL.URL_LOGIN,
+                        builder.build(),
+                        networkSuccessListener(),
+                        networkErrorListener());
+
+                queue.add(myReq);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -127,6 +154,37 @@ public class LoginActivity extends AppCompatActivity {
     public void goJoin(View v){
         Intent intent = new Intent(getApplicationContext(), JoinActivity.class);
         startActivity(intent);
+    }
 
+    private Response.Listener<JSONObject> networkSuccessListener() {
+        return new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+                try {
+                    if(response.getBoolean("login")){
+                        Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        app.user_id = email;
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Toast.makeText(LoginActivity.this, response.getString("error_message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
+
+            }
+        };
+    }
+    private Response.ErrorListener networkErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), R.string.volley_network_fail, Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 }
