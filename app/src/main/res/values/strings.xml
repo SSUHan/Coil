@@ -7,12 +7,12 @@
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_prepare_service">서비스 준비중입니다</string>
 
     <!-- TODO: nav items strings -->
     <string name="nav_home">전체화면</string>
     <string name="nav_mycoupon">내 쿠폰함</string>
-    <string name="nav_search">설정</string>
+    <string name="nav_search">검색</string>
     <string name="nav_settings">설정</string>
     <string name="nav_community">커뮤니티</string>
     <string name="title_activity_login">접속하기</string>

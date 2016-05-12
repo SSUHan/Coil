@@ -136,7 +136,8 @@ public class MainActivity extends AppCompatActivity
             title = getString(R.string.nav_settings);
 
         }else if(id == R.id.nav_community){
-            Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+            fragment = new CommunityFragment();
+            title = getString(R.string.nav_community);
 
         }
         if (fragment != null) {
