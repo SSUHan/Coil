@@ -130,6 +130,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_mycoupon) {
 
         } else if (id == R.id.nav_search) {
+            fragment = new SearchFragment();
+            title = getString(R.string.nav_search);
 
         } else if (id == R.id.nav_settings) {
             fragment = new SettingFragment();
