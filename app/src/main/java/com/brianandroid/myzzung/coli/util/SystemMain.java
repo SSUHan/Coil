@@ -15,5 +15,6 @@ public class SystemMain {
         public static final String URL_LOGIN = ROOT_URL+"login/do_login.php";
         public static final String URL_JOIN = ROOT_URL+"login/do_join.php";
         public static final String URL_SEARCH_STORE_ALL = ROOT_URL+"search/search_store_all.php";
+        public static final String URL_COUPON_ENROLL = ROOT_URL+"client/coupon_enroll.php";
     }
 }

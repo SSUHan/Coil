@@ -24,6 +24,7 @@
                 android:padding="10dp"
                 android:text="ddd"/>
             <Button
+                android:id="@+id/item_btn_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/search_store_down"/>
