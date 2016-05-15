@@ -14,5 +14,6 @@ public class SystemMain {
         public static final String ROOT_URL= "http://ljs93kr2.cafe24.com/coil/backend/";
         public static final String URL_LOGIN = ROOT_URL+"login/do_login.php";
         public static final String URL_JOIN = ROOT_URL+"login/do_join.php";
+        public static final String URL_SEARCH_STORE_ALL = ROOT_URL+"search/search_store_all.php";
     }
 }

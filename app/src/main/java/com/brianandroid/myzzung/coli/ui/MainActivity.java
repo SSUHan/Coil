@@ -1,10 +1,12 @@
 package com.brianandroid.myzzung.coli.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,13 +21,29 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
+import com.brianandroid.myzzung.coli.model.StoreInfo;
+import com.brianandroid.myzzung.coli.util.CoilRequestBuilder;
+import com.brianandroid.myzzung.coli.util.SystemMain;
+import com.brianandroid.myzzung.coli.volley.MyVolley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final String TAG = "MainActivity";
+
     private CoilApplication app;
+    RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +53,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         app = (CoilApplication)getApplicationContext();
+
+        queue = MyVolley.getInstance(getApplicationContext()).getRequestQueue();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +152,22 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_search) {
             fragment = new SearchFragment();
             title = getString(R.string.nav_search);
+            if(app.storeAll.isDoStoreListAll()){
+                try {
+                    CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
+                    builder.setCustomAttribute("user_id", app.user_id);
+                    Log.d(TAG, "before network : "+builder.build().toString());
+                    JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
+                            SystemMain.URL.URL_SEARCH_STORE_ALL,
+                            builder.build(),
+                            networkSearchStoreSuccessListener(),
+                            networkErrorListener());
+
+                    queue.add(myReq);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
         } else if (id == R.id.nav_settings) {
             fragment = new SettingFragment();
@@ -157,6 +193,42 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private Response.Listener<JSONObject> networkSearchStoreSuccessListener() {
+        return new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+                try {
+                    if(response.getBoolean("search_all")){
+                        app.storeAll.setDoStoreListAll(false); // 데이터를 받았으니, 더이상 재요청은 하지 않아도 된다
+                        JSONArray array = response.getJSONArray("store_list");
+                        for(int i=0; i<array.length();i++){
+                            JSONObject obj = array.getJSONObject(i);
+                            app.storeAll.addItem(new StoreInfo(obj));
+                        }
+                        app.storeAll.notifyAdapter(); // 데이터가 바뀌었으니 어뎁터를 새로 설정해달라고 요청
+
+                    }else{
+                        Toast.makeText(MainActivity.this, response.getString("error_message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
+
+            }
+        };
+    }
+    private Response.ErrorListener networkErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), R.string.volley_network_fail, Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
 //    static class Adapter extends FragmentPagerAdapter {

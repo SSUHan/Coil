@@ -4,7 +4,12 @@ import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.brianandroid.myzzung.coli.model.StoreInfo;
+import com.brianandroid.myzzung.coli.util.StoreSearchAdapter;
 import com.brianandroid.myzzung.coli.util.SystemMain;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by myZZUNG on 2016. 4. 18..
@@ -15,6 +20,7 @@ public class CoilApplication extends Application {
 
     public int version_code;
     public boolean debug_mode;
+    public StoreAll storeAll;
 
     @Override
     public void onCreate() {
@@ -40,6 +46,51 @@ public class CoilApplication extends Application {
 
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+        }
+
+        storeAll = new StoreAll();
+
+    }
+
+    /**
+     * 가게 리스트 검색의 데이터
+     */
+    public class StoreAll{
+        private boolean doStoreListAll;
+
+        private List<StoreInfo> itemList;
+        private StoreSearchAdapter adapter;
+        public StoreAll(){
+            doStoreListAll = true;
+            itemList = new ArrayList<>();
+        }
+
+        public boolean isDoStoreListAll() {
+            return doStoreListAll;
+        }
+
+        public void setDoStoreListAll(boolean doStoreListAll) {
+            this.doStoreListAll = doStoreListAll;
+        }
+
+        public List<StoreInfo> getItemList() {
+            return itemList;
+        }
+
+
+        public void setItemList(List<StoreInfo> itemList) {
+            this.itemList = itemList;
+        }
+
+        public void addItem(StoreInfo item){
+            itemList.add(item);
+        }
+        public void setAdapter(StoreSearchAdapter adapter){
+            this.adapter = adapter;
+        }
+
+        public void notifyAdapter(){
+            adapter.notifyDataSetChanged();
         }
 
     }

@@ -1,5 +1,10 @@
 package com.brianandroid.myzzung.coli.model;
 
+import com.brianandroid.myzzung.coli.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by myZZUNG on 2016. 5. 13..
  */
@@ -11,12 +16,21 @@ public class StoreInfo {
     private String created;
     private String modified;
     private int image;
+    private int userDown;
+    // flipType
     private int flipType;
 
     public StoreInfo(int image_res, String storeName){
         this.image = image_res;
         this.storeName = storeName;
         this.flipType = 0;
+    }
+    public StoreInfo(JSONObject obj) throws JSONException {
+        this.storeId = obj.getInt("store_id");
+        this.storeName = obj.getString("store_name");
+        this.userDown = obj.getInt("user_down");
+        this.created = obj.getString("created");
+        this.image = R.drawable.logo_sample3;
     }
 
     public void flipCard(){
@@ -81,5 +95,13 @@ public class StoreInfo {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public int getUserDown() {
+        return userDown;
+    }
+
+    public void setUserDown(int userDown) {
+        this.userDown = userDown;
     }
 }
