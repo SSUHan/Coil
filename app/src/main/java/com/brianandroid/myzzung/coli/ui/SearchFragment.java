@@ -36,7 +36,7 @@ public class SearchFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
         List<StoreInfo> items =  new ArrayList<>();

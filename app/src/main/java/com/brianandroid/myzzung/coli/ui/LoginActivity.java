@@ -1,6 +1,10 @@
 package com.brianandroid.myzzung.coli.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +26,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
+import com.brianandroid.myzzung.coli.gcm.QuickstartPreferences;
+import com.brianandroid.myzzung.coli.gcm.RegisterationIntentService;
 import com.brianandroid.myzzung.coli.util.CoilRequestBuilder;
 import com.brianandroid.myzzung.coli.util.SystemMain;
 import com.brianandroid.myzzung.coli.volley.MyVolley;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +41,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private final String TAG = "LoginActivity";
 
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
     private CoilApplication app;
+
+    // GCM references
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private String gcm_token = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -48,6 +63,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         app = (CoilApplication) getApplicationContext();
+
+        // Get GCM Token
+        registBroadcastReceiver();
+        setLocalBoradcastManager(getApplicationContext());
+        getInstanceIdToken();
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -126,7 +146,9 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
                 builder.setCustomAttribute("user_id", email)
-                        .setCustomAttribute("user_pw", password);
+                        .setCustomAttribute("user_pw", password)
+                        .setCustomAttribute("gcm_token", gcm_token);
+                Log.d(TAG, "before network : "+builder.build().toString());
                 JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
                         SystemMain.URL.URL_LOGIN,
                         builder.build(),
@@ -184,6 +206,86 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), R.string.volley_network_fail, Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
+
+    /**
+     * Google Play Service를 사용할 수 있는 환경이지를 체크한다.
+     */
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i(TAG, "This device is not supported.");
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Instance ID를 이용하여 디바이스 토큰을 가져오는 RegistrationIntentService를 실행한다.
+     */
+    public void getInstanceIdToken() {
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(getApplicationContext(), RegisterationIntentService.class);
+            startService(intent);
+        }else{
+            Log.d(TAG, "check Play Services invalid");
+        }
+    }
+
+    /**
+     * LocalBoardcastManager 를 등록한다
+     * @param context
+     */
+    private void setLocalBoradcastManager(Context context){
+        LocalBroadcastManager.getInstance(context).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(QuickstartPreferences.REGISTRATION_READY));
+        LocalBroadcastManager.getInstance(context).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(QuickstartPreferences.REGISTRATION_GENERATING));
+        LocalBroadcastManager.getInstance(context).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(QuickstartPreferences.REGISTRATION_COMPLETE));
+    }
+
+    /**
+     * LocalBoardcastManager를 해제한다
+     * @param context
+     */
+    private void deleteLocalBoardcastManager(Context context){
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(mRegistrationBroadcastReceiver);
+    }
+
+    /**
+     * LocalBroadcast 리시버를 정의한다. 토큰을 획득하기 위한 READY, GENERATING, COMPLETE 액션에 따라 UI에 변화를 준다.
+     */
+    public void registBroadcastReceiver(){
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+
+
+                if(action.equals(QuickstartPreferences.REGISTRATION_READY)){
+                    // 액션이 READY일 경우
+                    Log.d(TAG, "GCM Action ready");
+                } else if(action.equals(QuickstartPreferences.REGISTRATION_GENERATING)){
+                    // 액션이 GENERATING일 경우
+                    Log.d(TAG, "GCM Token generating");
+
+                } else if(action.equals(QuickstartPreferences.REGISTRATION_COMPLETE)){
+                    // 액션이 COMPLETE일 경우
+                    Log.d(TAG, "GCM Token generated");
+                    String token = intent.getStringExtra("token");
+                    Log.d(TAG, "GCM : "+token);
+                    gcm_token = token;
+                }
+
             }
         };
     }

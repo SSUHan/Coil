@@ -42,7 +42,7 @@ public class StoreSearchAdapter extends RecyclerView.Adapter<StoreSearchAdapter.
             return new FrontCardHolder(v);
 
         }else{
-            View v = inflater.inflate(R.layout.search_store_item_back, null);
+            View v = inflater.inflate(R.layout.search_store_item_back, parent, false);
             return new BackCardHolder(v);
         }
 

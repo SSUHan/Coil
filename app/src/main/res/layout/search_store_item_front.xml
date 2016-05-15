@@ -9,7 +9,7 @@
         card_view:cardCornerRadius="3dp"
         card_view:cardElevation="3dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="270dp"
         android:layout_margin="5dp">
 
         <LinearLayout
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
-                android:layout_width="355dp"
+                android:layout_width="match_parent"
                 android:layout_height="210dp"
                 android:id="@+id/item_image_front"/>
             <TextView
