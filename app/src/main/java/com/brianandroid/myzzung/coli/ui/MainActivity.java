@@ -148,6 +148,8 @@ public class MainActivity extends AppCompatActivity
             fragment = new HomeFragment();
             title = getString(R.string.nav_home);
         } else if (id == R.id.nav_mycoupon) {
+            fragment = new CouponFragment();
+            title = getString(R.string.nav_mycoupon);
 
         } else if (id == R.id.nav_search) {
             fragment = new SearchFragment();

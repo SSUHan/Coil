@@ -28,7 +28,7 @@ public class CoilApplication extends Application {
 
         initCoil(true);
 
-        // asdjfslfjldskfjalfjslfjlasfja
+
 
 
     }
