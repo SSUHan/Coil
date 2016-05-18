@@ -9,6 +9,7 @@ import org.json.JSONObject;
  * Created by myZZUNG on 2016. 5. 13..
  */
 public class StoreInfo {
+    private int couponId;
     private int storeId;
     private String storeName;
     private int maxStamp;
@@ -20,17 +21,26 @@ public class StoreInfo {
     // flipType
     private int flipType;
 
+    public static final int STORE_INFO = 1;
+    public static final int COUFON_INFO = 2;
+
     public StoreInfo(int image_res, String storeName){
         this.image = image_res;
         this.storeName = storeName;
         this.flipType = 0;
     }
-    public StoreInfo(JSONObject obj) throws JSONException {
+    public StoreInfo(JSONObject obj, int flag) throws JSONException {
         this.storeId = obj.getInt("store_id");
-        this.storeName = obj.getString("store_name");
-        this.userDown = obj.getInt("user_down");
         this.created = obj.getString("created");
         this.image = R.drawable.logo_sample3;
+        if(flag == STORE_INFO){
+            this.storeName = obj.getString("store_name");
+            this.userDown = obj.getInt("user_down");
+        }else if(flag == COUFON_INFO){
+            this.couponId = obj.getInt("coupon_id");
+            this.userStamp = obj.getInt("current_stamp");
+        }
+
     }
 
     public void flipCard(){
@@ -103,5 +113,13 @@ public class StoreInfo {
 
     public void setUserDown(int userDown) {
         this.userDown = userDown;
+    }
+
+    public int getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(int couponId) {
+        this.couponId = couponId;
     }
 }

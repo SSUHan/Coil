@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -36,7 +37,7 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
     int item_layout;
     private CoilApplication app;
 
-    public MyCouponAdapter(Context context, List<StoreInfo> items, int item_layout){
+    public MyCouponAdapter(Context context, List<StoreInfo> items, int item_layout) {
         this.context = context;
         this.items = items;
         this.item_layout = item_layout;
@@ -50,47 +51,42 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
             View v = inflater.inflate(R.layout.coupon_item_front, null);
             return new FrontCardHolder(v);
 
-        }else{
+        } else {
             View v = inflater.inflate(R.layout.coupon_item_back, parent, false);
             return new BackCardHolder(v);
         }
     }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final StoreInfo item = items.get(position);
-        Log.d("holder.getItemType", holder.getItemViewType()+"");
-        switch (holder.getItemViewType()){
+        Log.d("holder.getItemType", holder.getItemViewType() + "");
+        switch (holder.getItemViewType()) {
             case 0:
-                FrontCardHolder fHolder = (FrontCardHolder)holder;
+                FrontCardHolder fHolder = (FrontCardHolder) holder;
                 Drawable drawable = context.getResources().getDrawable(item.getImage());
                 fHolder.image.setBackground(drawable);
                 fHolder.text.setText(item.getStoreName());
                 break;
             case 1:
-                final BackCardHolder bHolder = (BackCardHolder)holder;
-                bHolder.text.setText(item.getStoreId()+" "+item.getStoreName()+" "+item.getCreated());
-//                bHolder.btn_download.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        RequestQueue queue = MyVolley.getInstance(context).getRequestQueue();
-//                        try {
-//                            CoilRequestBuilder builder = new CoilRequestBuilder(context);
-//                            builder.setCustomAttribute("user_id", app.user_id)
-//                                    .setCustomAttribute("store_id", item.getStoreId());
-//                            Log.d(TAG, "before network : "+builder.build().toString());
-//                            JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
-//                                    SystemMain.URL.URL_COUPON_ENROLL,
-//                                    builder.build(),
-//                                    networkSuccessListener(bHolder.btn_download),
-//                                    networkErrorListener());
-//
-//                            queue.add(myReq);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
+                final BackCardHolder bHolder = (BackCardHolder) holder;
+                bHolder.text.setText(item.getStoreId() + " " + item.getCouponId() + " " + item.getCreated());
+                bHolder.btn_download.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new MaterialDialog.Builder(context)
+                                .items(R.array.coupon_work)
+                                .itemsCallback(new MaterialDialog.ListCallback() {
+                                    @Override
+                                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                        Toast.makeText(context, which+" "+text, Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .negativeText(R.string.btn_negative_text)
+                                .show();
+                    }
+                });
                 break;
         }
     }
@@ -99,12 +95,13 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
     public int getItemCount() {
         return this.items.size();
     }
+
     @Override
     public int getItemViewType(int position) {
         return items.get(position).getFlipType();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
         public ViewHolder(View itemView) {
@@ -115,12 +112,13 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
         @Override
         public void onClick(View v) {
             int position = getPosition();
-            Toast.makeText(context, "holder position : "+position, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "holder position : " + position, Toast.LENGTH_SHORT).show();
             items.get(position).flipCard();
             notifyItemChanged(position);
         }
     }
-    public class FrontCardHolder extends ViewHolder{
+
+    public class FrontCardHolder extends ViewHolder {
 
         public ImageView image;
         public TextView text;
@@ -128,13 +126,13 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
 
         public FrontCardHolder(View itemView) {
             super(itemView);
-            image=(ImageView)itemView.findViewById(R.id.item_image_front);
-            text=(TextView)itemView.findViewById(R.id.item_text_front);
-            //card = (CardView)itemView.findViewById(R.id.card_view);
+            image = (ImageView) itemView.findViewById(R.id.item_image_front);
+            text = (TextView) itemView.findViewById(R.id.item_text_front);
+
         }
     }
 
-    public class BackCardHolder extends ViewHolder{
+    public class BackCardHolder extends ViewHolder {
 
         public TextView text;
         public Button btn_download;
@@ -143,6 +141,7 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.item_text_back);
             btn_download = (Button) itemView.findViewById(R.id.item_btn_back);
+
         }
     }
 }

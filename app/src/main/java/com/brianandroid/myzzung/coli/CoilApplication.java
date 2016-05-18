@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.brianandroid.myzzung.coli.model.StoreInfo;
+import com.brianandroid.myzzung.coli.util.MyCouponAdapter;
 import com.brianandroid.myzzung.coli.util.StoreSearchAdapter;
 import com.brianandroid.myzzung.coli.util.SystemMain;
 
@@ -20,7 +21,9 @@ public class CoilApplication extends Application {
 
     public int version_code;
     public boolean debug_mode;
+
     public StoreAll storeAll;
+    public MyCoupons myCoupons;
 
     @Override
     public void onCreate() {
@@ -51,7 +54,7 @@ public class CoilApplication extends Application {
         }
 
         storeAll = new StoreAll();
-
+        myCoupons = new MyCoupons();
     }
 
     /**
@@ -95,6 +98,47 @@ public class CoilApplication extends Application {
             adapter.notifyDataSetChanged();
         }
 
+    }
+
+    /**
+     * 쿠폰 카드 정보를 저장하는 데이터
+     */
+    public class MyCoupons{
+        private boolean doNetwork;
+        private List<StoreInfo> itemList;
+        private MyCouponAdapter adapter;
+
+        public MyCoupons(){
+            this.doNetwork = true;
+            itemList = new ArrayList<>();
+        }
+
+        public void setDoNetwork(boolean doNetwork){
+            this.doNetwork = doNetwork;
+        }
+
+        public boolean isDoNetwork() {
+            return doNetwork;
+        }
+        public List<StoreInfo> getItemList() {
+            return itemList;
+        }
+
+
+        public void setItemList(List<StoreInfo> itemList) {
+            this.itemList = itemList;
+        }
+
+        public void addItem(StoreInfo item){
+            itemList.add(item);
+        }
+        public void setAdapter(MyCouponAdapter adapter){
+            this.adapter = adapter;
+        }
+
+        public void notifyAdapter(){
+            adapter.notifyDataSetChanged();
+        }
     }
 
 }

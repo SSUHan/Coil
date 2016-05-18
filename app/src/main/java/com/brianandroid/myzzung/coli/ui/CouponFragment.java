@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
 import com.brianandroid.myzzung.coli.model.StoreInfo;
+import com.brianandroid.myzzung.coli.util.MyCouponAdapter;
 import com.brianandroid.myzzung.coli.util.StoreSearchAdapter;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class CouponFragment extends Fragment {
 
-    private final String TAG = "SearchFragment";
+    private final String TAG = "CouponFragment";
 
     private CoilApplication app;
 
@@ -46,21 +47,21 @@ public class CouponFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<StoreInfo> items =  new ArrayList<>();
-        StoreInfo[] item=new StoreInfo[5];
-        item[0]=new StoreInfo(R.drawable.logo_sample1,"#1");
-        item[1]=new StoreInfo(R.drawable.logo_sample2,"#2");
-        item[2]=new StoreInfo(R.drawable.logo_sample3,"#3");
-        item[3]=new StoreInfo(R.drawable.logo_sample3,"#4");
-        item[4]=new StoreInfo(R.drawable.logo_sample3,"#5");
+//        List<StoreInfo> items =  new ArrayList<>();
+//        StoreInfo[] item=new StoreInfo[5];
+//        item[0]=new StoreInfo(R.drawable.logo_sample1,"#1");
+//        item[1]=new StoreInfo(R.drawable.logo_sample2,"#2");
+//        item[2]=new StoreInfo(R.drawable.logo_sample3,"#3");
+//        item[3]=new StoreInfo(R.drawable.logo_sample3,"#4");
+//        item[4]=new StoreInfo(R.drawable.logo_sample3,"#5");
+//
+//        for(int i=0;i<5;i++) items.add(item[i]);
+//
+//        recyclerView.setAdapter(new StoreSearchAdapter(getActivity(), items, R.layout.fragment_coupon));
 
-        for(int i=0;i<5;i++) items.add(item[i]);
-
-        recyclerView.setAdapter(new StoreSearchAdapter(getActivity(), items, R.layout.fragment_coupon));
-
-//        StoreSearchAdapter adapter = new StoreSearchAdapter(getActivity(), app.storeAll.getItemList(), R.layout.fragment_search);
-//        app.storeAll.setAdapter(adapter);
-//        recyclerView.setAdapter(adapter);
+        MyCouponAdapter adapter = new MyCouponAdapter(getActivity(), app.myCoupons.getItemList(), R.layout.fragment_coupon);
+        app.myCoupons.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         return rootView;
     }
 

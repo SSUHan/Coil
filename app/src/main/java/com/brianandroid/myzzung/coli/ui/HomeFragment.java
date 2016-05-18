@@ -67,16 +67,16 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        new MaterialDialog.Builder(getActivity())
-                .title("Input")
-                .content("Contents")
-                .inputType(InputType.TYPE_CLASS_NUMBER)
-                .input("hint",null, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(MaterialDialog dialog, CharSequence input) {
-                        // Do something
-                    }
-                }).show();
+//        new MaterialDialog.Builder(getActivity())
+//                .title("Input")
+//                .content("Contents")
+//                .inputType(InputType.TYPE_CLASS_NUMBER)
+//                .input("hint",null, new MaterialDialog.InputCallback() {
+//                    @Override
+//                    public void onInput(MaterialDialog dialog, CharSequence input) {
+//                        // Do something
+//                    }
+//                }).show();
 
 
 

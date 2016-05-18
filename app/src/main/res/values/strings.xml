@@ -37,5 +37,17 @@
     <string name="search_store_already_down">다운로드 완료</string>
     <string name="search_store_down">다운로드</string>
 
+    <!--TODO : coupon works strings-->
+    <string-array name="coupon_work">
+        <item>도장 추가하기</item>
+        <item>도장 사용하기</item>
+        <item>도장 선물하기</item>
+        <item>정보 보기</item>
+    </string-array>
+
+    <!--TODO : button text -->
+    <string name="btn_negative_text">취소</string>
+    <string name="btn_positive_text">확인</string>
+
 
 </resources>
