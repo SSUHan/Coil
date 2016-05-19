@@ -22,15 +22,24 @@ public class CoilRequestBuilder {
     private CoilApplication app;
 
 
-    public CoilRequestBuilder(Context context) throws JSONException {
+    public CoilRequestBuilder(Context context) {
         app = (CoilApplication) context.getApplicationContext();
         mRequestBody = new JSONObject();
-        mRequestBody.put(ATTR_KEY_DEBUG_MODE, app.debug_mode);
-        mRequestBody.put(ATTR_KEY_BUILD_VERSION, app.version_code);
+        try {
+            mRequestBody.put(ATTR_KEY_DEBUG_MODE, app.debug_mode);
+            mRequestBody.put(ATTR_KEY_BUILD_VERSION, app.version_code);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public CoilRequestBuilder setCustomAttribute(String key, Object value) throws JSONException {
-        mRequestBody.put(key, value);
+    public CoilRequestBuilder setCustomAttribute(String key, Object value){
+        try {
+            mRequestBody.put(key, value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 

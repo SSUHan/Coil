@@ -17,5 +17,6 @@ public class SystemMain {
         public static final String URL_SEARCH_STORE_ALL = ROOT_URL+"search/search_store_all.php";
         public static final String URL_COUPON_ENROLL = ROOT_URL+"client/coupon_enroll.php";
         public static final String URL_COUPON_SHOW = ROOT_URL+"client/coupon_show.php";
+        public static final String URL_COUPON_UPDATE = ROOT_URL+"client/coupon_update.php";
     }
 }

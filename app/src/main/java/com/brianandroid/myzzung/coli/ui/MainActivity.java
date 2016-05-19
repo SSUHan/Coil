@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new CouponFragment();
             title = getString(R.string.nav_mycoupon);
             if(app.myCoupons.isDoNetwork()){
-                try {
+
                     CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
                     builder.setCustomAttribute("user_id", app.user_id);
                     Log.d(TAG, "before network : "+builder.build().toString());
@@ -162,16 +162,14 @@ public class MainActivity extends AppCompatActivity
                             networkErrorListener());
 
                     queue.add(myReq);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
             }
 
         } else if (id == R.id.nav_search) {
             fragment = new SearchFragment();
             title = getString(R.string.nav_search);
             if(app.storeAll.isDoStoreListAll()){
-                try {
+
                     CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
                     builder.setCustomAttribute("user_id", app.user_id);
                     Log.d(TAG, "before network : "+builder.build().toString());
@@ -182,9 +180,7 @@ public class MainActivity extends AppCompatActivity
                             networkErrorListener());
 
                     queue.add(myReq);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
             }
 
         } else if (id == R.id.nav_settings) {

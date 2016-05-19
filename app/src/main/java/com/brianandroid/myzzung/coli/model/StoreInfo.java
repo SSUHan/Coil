@@ -122,4 +122,13 @@ public class StoreInfo {
     public void setCouponId(int couponId) {
         this.couponId = couponId;
     }
+
+    public String showCouponState(){
+        String str =  "couponId : "+couponId
+                +"\nstoreId : "+storeId
+                +"\nstoreName : "+storeName
+                +"\ncurrent_stamp : "+userStamp
+                +"\ncreated : "+created;
+        return str;
+    }
 }

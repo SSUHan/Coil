@@ -86,7 +86,7 @@ public class StoreSearchAdapter extends RecyclerView.Adapter<StoreSearchAdapter.
                     @Override
                     public void onClick(View v) {
                         RequestQueue queue = MyVolley.getInstance(context).getRequestQueue();
-                        try {
+
                             CoilRequestBuilder builder = new CoilRequestBuilder(context);
                             builder.setCustomAttribute("user_id", app.user_id)
                                     .setCustomAttribute("store_id", item.getStoreId());
@@ -98,9 +98,7 @@ public class StoreSearchAdapter extends RecyclerView.Adapter<StoreSearchAdapter.
                                     networkErrorListener());
 
                             queue.add(myReq);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
                     }
                 });
                 break;

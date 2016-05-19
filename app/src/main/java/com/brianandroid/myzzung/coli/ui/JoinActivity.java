@@ -96,7 +96,7 @@ public class JoinActivity extends AppCompatActivity {
         } else {
 
             final RequestQueue queue = MyVolley.getInstance(getApplicationContext()).getRequestQueue();
-            try {
+
                 CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
                 builder.setCustomAttribute("user_id", email)
                         .setCustomAttribute("user_pw", password);
@@ -107,9 +107,6 @@ public class JoinActivity extends AppCompatActivity {
                         networkErrorListener());
 
                 queue.add(myReq);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
             return true;
         }

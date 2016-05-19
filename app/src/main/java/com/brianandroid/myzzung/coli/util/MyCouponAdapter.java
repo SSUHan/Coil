@@ -71,7 +71,7 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
                 break;
             case 1:
                 final BackCardHolder bHolder = (BackCardHolder) holder;
-                bHolder.text.setText(item.getStoreId() + " " + item.getCouponId() + " " + item.getCreated());
+                bHolder.text.setText(item.showCouponState());
                 bHolder.btn_download.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -80,7 +80,19 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
                                 .itemsCallback(new MaterialDialog.ListCallback() {
                                     @Override
                                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                        Toast.makeText(context, which+" "+text, Toast.LENGTH_SHORT).show();
+                                        switch(which){
+                                            case 0:
+                                                CouponWork couponWork = new CouponWork(context);
+                                                couponWork.doMakeStamp(item.getCouponId(), 1);
+                                                break;
+                                            case 1:
+                                                break;
+                                            case 2:
+                                                break;
+                                            case 3:
+                                                break;
+
+                                        }
                                     }
                                 })
                                 .negativeText(R.string.btn_negative_text)

@@ -143,22 +143,20 @@ public class LoginActivity extends AppCompatActivity {
 //            mAuthTask = new UserLoginTask(email, password);
 //            mAuthTask.execute((Void) null);
             final RequestQueue queue = MyVolley.getInstance(getApplicationContext()).getRequestQueue();
-            try {
+
                 CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
                 builder.setCustomAttribute("user_id", email)
                         .setCustomAttribute("user_pw", password)
                         .setCustomAttribute("gcm_token", gcm_token);
                 Log.d(TAG, "before network : "+builder.build().toString());
-                JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
-                        SystemMain.URL.URL_LOGIN,
-                        builder.build(),
-                        networkSuccessListener(),
-                        networkErrorListener());
+            JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
+                    SystemMain.URL.URL_LOGIN,
+                    builder.build(),
+                    networkSuccessListener(),
+                    networkErrorListener());
 
-                queue.add(myReq);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            queue.add(myReq);
+
 
         }
     }
