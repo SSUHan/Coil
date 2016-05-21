@@ -57,6 +57,11 @@ public class CoilApplication extends Application {
         myCoupons = new MyCoupons();
     }
 
+    public void doNetworkAgain(){
+        storeAll.setDoStoreListAll(true);
+        myCoupons.setDoNetwork(true);
+    }
+
     /**
      * 가게 리스트 검색의 데이터
      */
@@ -111,6 +116,9 @@ public class CoilApplication extends Application {
         public MyCoupons(){
             this.doNetwork = true;
             itemList = new ArrayList<>();
+        }
+        public void listInit(){
+            itemList.clear();
         }
 
         public void setDoNetwork(boolean doNetwork){

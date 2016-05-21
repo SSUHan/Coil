@@ -12,9 +12,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
+import com.brianandroid.myzzung.coli.model.StoreInfo;
 import com.brianandroid.myzzung.coli.ui.MainActivity;
 import com.brianandroid.myzzung.coli.volley.MyVolley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +42,20 @@ public class CouponWork {
     }
 
     /**
+     * 쿠폰 정보를 다시 받아오기 작업
+     */
+    public void updateCouponInfo(){
+        Log.d(TAG, "before network : "+builder.build().toString());
+        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
+                SystemMain.URL.URL_COUPON_SHOW,
+                builder.build(),
+                updateCouponSuccessListener(),
+                networkErrorListener());
+
+        queue.add(myReq);
+    }
+
+    /**
      * 쿠폰에 도장 갯수를 늘이는 작업
      */
     public void doMakeStamp(int coupon_id, int stamp_num){
@@ -49,12 +65,38 @@ public class CouponWork {
         JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
                 SystemMain.URL.URL_COUPON_UPDATE,
                 builder.build(),
-                couponUpdateSuccessListener(),
+                makeStampSuccessListener(),
                 networkErrorListener());
 
         queue.add(myReq);
     }
-    private Response.Listener<JSONObject> couponUpdateSuccessListener() {
+
+    private Response.Listener<JSONObject> updateCouponSuccessListener() {
+        return new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+                try {
+                    app.myCoupons.setDoNetwork(false); // 데이터를 받았으니, 더이상 재요청은 하지 않아도 된다
+                    app.myCoupons.listInit();
+                    JSONArray array = response.getJSONArray("coupon_list");
+                    for(int i=0; i<array.length();i++){
+                        JSONObject obj = array.getJSONObject(i);
+                        app.myCoupons.addItem(new StoreInfo(obj, StoreInfo.COUFON_INFO));
+                    }
+                    app.myCoupons.notifyAdapter(); // 데이터가 바뀌었으니 어뎁터를 새로 설정해달라고 요청
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
+
+            }
+        };
+    }
+
+    private Response.Listener<JSONObject> makeStampSuccessListener() {
         return new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -63,6 +105,8 @@ public class CouponWork {
                     int state = response.getInt("update_state");
                     if(state== 1){
                         Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        app.doNetworkAgain();
+                        updateCouponInfo();
                     }else if(state == -1){
                         Toast.makeText(context, response.getString("error_message"), Toast.LENGTH_SHORT).show();
                     }
