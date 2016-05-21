@@ -32,9 +32,9 @@ public class StoreInfo {
     public StoreInfo(JSONObject obj, int flag) throws JSONException {
         this.storeId = obj.getInt("store_id");
         this.created = obj.getString("created");
+        this.storeName = obj.getString("store_name");
         this.image = R.drawable.logo_sample3;
         if(flag == STORE_INFO){
-            this.storeName = obj.getString("store_name");
             this.userDown = obj.getInt("user_down");
         }else if(flag == COUFON_INFO){
             this.couponId = obj.getInt("coupon_id");
