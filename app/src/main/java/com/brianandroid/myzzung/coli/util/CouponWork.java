@@ -105,9 +105,11 @@ public class CouponWork {
                     int state = response.getInt("update_state");
                     if(state== 1){
                         Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
-                        app.doNetworkAgain();
-
-                    }else if(state == 3){
+                    }else if(state == 0){
+                        // 꽉찬 쿠폰
+                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                    else if(state == 3){
                         // 쿠폰이 꽉차고도 도장갯수가 남을경우
                         // 추가로 동적할당해주고 나머지를 넣어준다
                         Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
@@ -121,6 +123,7 @@ public class CouponWork {
                     else if(state == -1){
                         Toast.makeText(context, response.getString("error_message"), Toast.LENGTH_SHORT).show();
                     }
+                    app.doNetworkAgain();
                     updateCouponInfo();
                 } catch (JSONException e) {
                     e.printStackTrace();
