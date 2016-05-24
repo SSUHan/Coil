@@ -71,6 +71,29 @@ public class CouponWork {
         queue.add(myReq);
     }
 
+    /**
+     * 쿠폰을 삭제하는 작업
+     * @param coupon_id
+     * @param store_id
+     */
+    public void deleteCoupon(int coupon_id, int store_id){
+        builder.setCustomAttribute("coupon_id", coupon_id)
+                .setCustomAttribute("store_id", store_id);
+        Log.d(TAG, "before network : "+builder.build().toString());
+        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
+                SystemMain.URL.URL_COUPON_DELETE,
+                builder.build(),
+                deleteCouponSuccessListener(),
+                networkErrorListener());
+
+        queue.add(myReq);
+    }
+
+    /**
+     * 쿠폰 내용물을 보는 성공리스너
+     * updateCouponInfo() 에서 사용
+     * @return
+     */
     private Response.Listener<JSONObject> updateCouponSuccessListener() {
         return new Response.Listener<JSONObject>() {
             @Override
@@ -96,6 +119,10 @@ public class CouponWork {
         };
     }
 
+    /**
+     * 도장 갯수를 추가하는 성공리스너
+     * doMakeStamp 에서 사용
+     */
     private Response.Listener<JSONObject> makeStampSuccessListener() {
         return new Response.Listener<JSONObject>() {
             @Override
@@ -133,6 +160,33 @@ public class CouponWork {
             }
         };
     }
+
+    /**
+     * 쿠폰 삭제 성공 리스너
+     * @return
+     */
+    private Response.Listener<JSONObject> deleteCouponSuccessListener() {
+        return new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+                try {
+                    if(response.getBoolean("delete_state")){
+                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context, response.getString("error_message"), Toast.LENGTH_SHORT).show();
+                    }
+                    updateCouponInfo();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
+
+            }
+        };
+    }
+
+
     private Response.ErrorListener networkErrorListener() {
         return new Response.ErrorListener() {
             @Override
