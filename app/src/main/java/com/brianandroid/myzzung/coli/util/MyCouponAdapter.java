@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -80,9 +83,9 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
                                 .itemsCallback(new MaterialDialog.ListCallback() {
                                     @Override
                                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                        final CouponWork couponWork = new CouponWork(context);
                                         switch(which){
                                             case 0:
-                                                CouponWork couponWork = new CouponWork(context);
                                                 couponWork.doMakeStamp(item.getCouponId(), 1);
                                                 break;
                                             case 1:
@@ -90,6 +93,20 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
                                             case 2:
                                                 break;
                                             case 3:
+                                                new MaterialDialog.Builder(context)
+                                                        .title("쿠폰삭제")
+                                                        .content(R.string.dialog_delete_contents)
+                                                        .positiveText(R.string.btn_positive_text)
+                                                        .negativeText(R.string.btn_negative_text)
+                                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                            @Override
+                                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                                couponWork.deleteCoupon(item.getCouponId(), item.getStoreId());
+                                                            }
+                                                        })
+                                                        .theme(Theme.DARK)
+                                                        .show();
+
                                                 break;
 
                                         }

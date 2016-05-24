@@ -30,6 +30,7 @@ import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
 import com.brianandroid.myzzung.coli.model.StoreInfo;
 import com.brianandroid.myzzung.coli.util.CoilRequestBuilder;
+import com.brianandroid.myzzung.coli.util.CouponWork;
 import com.brianandroid.myzzung.coli.util.SystemMain;
 import com.brianandroid.myzzung.coli.volley.MyVolley;
 
@@ -151,18 +152,8 @@ public class MainActivity extends AppCompatActivity
             fragment = new CouponFragment();
             title = getString(R.string.nav_mycoupon);
             if(app.myCoupons.isDoNetwork()){
-
-                    CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
-                    builder.setCustomAttribute("user_id", app.user_id);
-                    Log.d(TAG, "before network : "+builder.build().toString());
-                    JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
-                            SystemMain.URL.URL_COUPON_SHOW,
-                            builder.build(),
-                            networkCouponSuccessListener(),
-                            networkErrorListener());
-
-                    queue.add(myReq);
-
+                CouponWork couponWork = new CouponWork(getApplicationContext());
+                couponWork.updateCouponInfo();
             }
 
         } else if (id == R.id.nav_search) {
@@ -236,30 +227,7 @@ public class MainActivity extends AppCompatActivity
             }
         };
     }
-    private Response.Listener<JSONObject> networkCouponSuccessListener() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, response.toString());
-                try {
 
-                        app.myCoupons.setDoNetwork(false); // 데이터를 받았으니, 더이상 재요청은 하지 않아도 된다
-                        JSONArray array = response.getJSONArray("coupon_list");
-                        for(int i=0; i<array.length();i++){
-                            JSONObject obj = array.getJSONObject(i);
-                            app.myCoupons.addItem(new StoreInfo(obj, StoreInfo.COUFON_INFO));
-                        }
-                        app.myCoupons.notifyAdapter(); // 데이터가 바뀌었으니 어뎁터를 새로 설정해달라고 요청
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
-
-            }
-        };
-    }
 
 
     private Response.ErrorListener networkErrorListener() {
