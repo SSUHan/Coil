@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="카테고리: " />
+
+        <Spinner
+            android:id="@+id/report_category_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/report_editor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fffff9"
+                android:hint="@string/user_report_texthint"
+                android:inputType="textMultiLine"
+                android:maxLength="1000"
+                android:maxLines="15"
+                android:minLines="15"
+                android:padding="15dp" />
+
+            <Button
+                android:id="@+id/report_cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/report_editor"
+                android:layout_gravity="bottom"
+                android:text="취소"
+                android:onClick="cancelReport"/>
+
+            <Button
+                android:id="@+id/report_enroll_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/report_editor"
+                android:layout_gravity="bottom"
+                android:text="보내기"
+                android:onClick="enrollReport"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

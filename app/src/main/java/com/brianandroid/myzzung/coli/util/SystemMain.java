@@ -19,4 +19,10 @@ public class SystemMain {
         public static final String URL_COUPON_SHOW = ROOT_URL+"client/coupon_show.php";
         public static final String URL_COUPON_UPDATE = ROOT_URL+"client/coupon_update.php";
     }
+
+    public class SharedPreferences{
+        public static final String SHARED_PREFERENCE_AUTOFILE = "auto_login"; // 자동로그인 SharedPreferences
+        public static final String SHARED_PREFERENCE_NOTIFICATIONFILE = "notification_check"; // 푸쉬알림을 위한 SharedPreferences
+    }
+
 }

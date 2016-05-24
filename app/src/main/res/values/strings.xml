@@ -33,6 +33,24 @@
         completions."
     </string>
 
+    <!-- Strings related to setting -->
+    <string name="auto_login_set_true">자동로그인이 설정되었습니다</string>
+    <string name="auto_login_set_false">자동로그인이 해제되었습니다</string>
+    <string name="notification_set_true">푸시알림이 설정되었습니다</string>
+    <string name="notification_set_false">푸시알림이 해제되었습니다</string>
+
+    <!-- user report strings -->
+    <string name="user_report_texthint">여기에 작성해주세요 :)</string>
+    <string name="error_user_report_field_required">내용을 입력해주세요</string>
+    <string name="error_user_report_category_required">카테고리를 선택해주세요</string>
+    <string-array name="user_report_category">
+        <item>선택안함</item>
+        <item>버그신고</item>
+        <item>건의하기</item>
+        <item>기타</item>
+    </string-array>
+
+
     <!--TODO : search store strings-->
     <string name="search_store_already_down">다운로드 완료</string>
     <string name="search_store_down">다운로드</string>
