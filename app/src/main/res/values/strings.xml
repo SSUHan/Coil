@@ -6,7 +6,6 @@
 
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="text_prepare_service">서비스 준비중입니다</string>
 
     <!-- TODO: nav items strings -->
@@ -45,9 +44,12 @@
         <item>쿠폰 삭제하기</item>
     </string-array>
 
-    <!--TODO : button text -->
+    <!--TODO : Button Text -->
     <string name="btn_negative_text">취소</string>
     <string name="btn_positive_text">확인</string>
+
+    <!--TODO : Dialog Text-->
+    <string name="dialog_delete_contents">쿠폰을 정말 삭제할겁니까?</string>
 
 
 </resources>

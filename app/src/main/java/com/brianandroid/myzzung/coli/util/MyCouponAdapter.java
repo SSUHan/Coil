@@ -95,9 +95,9 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
                                             case 3:
                                                 new MaterialDialog.Builder(context)
                                                         .title("쿠폰삭제")
-                                                        .content("쿠폰을 정말 삭제할겁니까?")
-                                                        .positiveText("확인")
-                                                        .negativeText("취소")
+                                                        .content(R.string.dialog_delete_contents)
+                                                        .positiveText(R.string.btn_positive_text)
+                                                        .negativeText(R.string.btn_negative_text)
                                                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                                                             @Override
                                                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
