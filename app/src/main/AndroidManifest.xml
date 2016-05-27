@@ -36,6 +36,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.UserReportActivity"/>
+        <activity android:name=".ui.PresentActivity"/>
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

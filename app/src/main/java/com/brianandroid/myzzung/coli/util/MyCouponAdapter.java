@@ -2,6 +2,7 @@ package com.brianandroid.myzzung.coli.util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
 import com.brianandroid.myzzung.coli.model.StoreInfo;
+import com.brianandroid.myzzung.coli.ui.PresentActivity;
 import com.brianandroid.myzzung.coli.volley.MyVolley;
 
 import org.json.JSONException;
@@ -89,6 +91,8 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
                                                 couponWork.doMakeStamp(item.getCouponId(), 1);
                                                 break;
                                             case 1:
+                                                Intent intent = new Intent(context, PresentActivity.class);
+                                                context.startActivity(intent);
                                                 break;
                                             case 2:
                                                 break;
