@@ -2,9 +2,13 @@ package com.brianandroid.myzzung.coli.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -58,8 +62,10 @@ public class CouponWork {
     /**
      * 쿠폰에 도장 갯수를 늘이는 작업
      */
-    public void doMakeStamp(int coupon_id, int stamp_num){
+    public void doMakeStamp(int coupon_id, int store_id, int stamp_num, String spw){
         builder.setCustomAttribute("coupon_id", coupon_id)
+                .setCustomAttribute("store_id", store_id)
+                .setCustomAttribute("store_pw", spw)
                 .setCustomAttribute("stamp_num", stamp_num);
         Log.d(TAG, "before network : "+builder.build().toString());
         JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
@@ -148,7 +154,12 @@ public class CouponWork {
                         }
                     }
                     else if(state == -1){
-                        Toast.makeText(context, response.getString("error_message"), Toast.LENGTH_SHORT).show();
+                        new MaterialDialog.Builder(context)
+                                .title("도장찍기")
+                                .content("도장찍기에 실패하였습니다\n"+response.getString("error_message"))
+                                .positiveText(R.string.btn_positive_text)
+                                .theme(Theme.DARK)
+                                .show();
                     }
                     app.doNetworkAgain();
                     updateCouponInfo();

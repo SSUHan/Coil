@@ -16,6 +16,7 @@
         <EditText
             android:id="@+id/dialog_store_stamp_num"
             android:layout_width="match_parent"
+            android:inputType="number"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
@@ -32,6 +33,7 @@
         <EditText
             android:id="@+id/dialog_store_password"
             android:layout_width="match_parent"
+            android:inputType="textPassword"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
