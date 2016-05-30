@@ -1,6 +1,7 @@
 package com.brianandroid.myzzung.coli.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,10 +44,11 @@ public class PresentActivity extends AppCompatActivity {
         queue = MyVolley.getInstance(getApplicationContext()).getRequestQueue();
 
         //사용자의 쿠폰에관한 정보들을 Bundle로 부터 가져옵니다.
-        final int selected_coupon_id = savedInstanceState.getInt("coupon_id");
-        final int selected_store_id = savedInstanceState.getInt("store_id");
-        int selected_max_stamp = savedInstanceState.getInt("max_stamp");
-        int selected_user_stamp = savedInstanceState.getInt("user_stamp");
+        Intent intent = getIntent();
+        final int selected_coupon_id = intent.getIntExtra("coupon_id", -1);
+        final int selected_store_id = intent.getIntExtra("store_id", -1);
+//        int selected_max_stamp = intent.getIntExtra("max_stamp", -1);
+        int selected_user_stamp = intent.getIntExtra("user_stamp", -1);
 
         final EditText editText = (EditText)findViewById(R.id.present_editText);
         Button button = (Button)findViewById(R.id.present_button);
@@ -68,7 +70,7 @@ public class PresentActivity extends AppCompatActivity {
                             String search_text = editText.getText().toString();
                             if (search_text.isEmpty())
                             {
-                                Toast.makeText(getApplicationContext(),"검색어를 입력하십시오.",Toast.LENGTH_SHORT);
+                                Toast.makeText(getApplicationContext(),"검색어를 입력하십시오.",Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             //builder에 검색에 필요한 정보들을 담습니다.

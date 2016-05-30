@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,9 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
     List<StoreInfo> items;
     int item_layout;
     private CoilApplication app;
+
+    private EditText passwordInput; // 도장 증가할때 가게 비밀번호
+    private EditText numInput; // 도장 증가할때 도장 갯수
 
     public MyCouponAdapter(Context context, List<StoreInfo> items, int item_layout) {
         this.context = context;
@@ -83,18 +87,43 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
                         new MaterialDialog.Builder(context)
                                 .items(R.array.coupon_work)
                                 .itemsCallback(new MaterialDialog.ListCallback() {
+                                    @SuppressWarnings("ResourceAsColor")
                                     @Override
                                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                                         final CouponWork couponWork = new CouponWork(context);
                                         switch(which){
+
                                             case 0:
-                                                couponWork.doMakeStamp(item.getCouponId(), 1);
+
+                                                MaterialDialog custom_dialog = new MaterialDialog.Builder(context)
+                                                        .title("도장찍기")
+                                                        .customView(R.layout.dialog_layout_stamp_input, true)
+                                                        .positiveText(R.string.btn_positive_text)
+                                                        .negativeText(R.string.btn_negative_text)
+                                                        .onPositive(new MaterialDialog.SingleButtonCallback(){
+
+                                                            @Override
+                                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                                Toast.makeText(context, "numInput :"+numInput.getText().toString()+" Password:"+passwordInput.getText().toString(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        })
+                                                        .build();
+                                                View positiveAction = custom_dialog.getActionButton(DialogAction.POSITIVE);
+                                                numInput = (EditText)custom_dialog.findViewById(R.id.dialog_store_stamp_num);
+                                                passwordInput = (EditText) custom_dialog.findViewById(R.id.dialog_store_password);
+                                                custom_dialog.show();
+                                                positiveAction.setEnabled(true); // disabled by default
+                                                // couponWork.doMakeStamp(item.getCouponId(), 1);
                                                 break;
                                             case 1:
-                                                Intent intent = new Intent(context, PresentActivity.class);
-                                                context.startActivity(intent);
+
                                                 break;
                                             case 2:
+                                                Intent intent = new Intent(context, PresentActivity.class);
+                                                intent.putExtra("coupon_id", item.getCouponId());
+                                                intent.putExtra("store_id", item.getStoreId());
+                                                intent.putExtra("user_stamp", item.getUserStamp());
+                                                context.startActivity(intent);
                                                 break;
                                             case 3:
                                                 new MaterialDialog.Builder(context)
