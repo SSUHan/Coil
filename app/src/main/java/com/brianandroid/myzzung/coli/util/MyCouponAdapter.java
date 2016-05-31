@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,9 +94,7 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
                                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                                         final CouponWork couponWork = new CouponWork(context);
                                         switch(which){
-
                                             case 0:
-
                                                 MaterialDialog custom_dialog = new MaterialDialog.Builder(context)
                                                         .title("도장찍기")
                                                         .customView(R.layout.dialog_layout_stamp_input, true)
@@ -104,16 +104,32 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
 
                                                             @Override
                                                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                                Toast.makeText(context, "numInput :"+numInput.getText().toString()+" Password:"+passwordInput.getText().toString(), Toast.LENGTH_SHORT).show();
+                                                                couponWork.doMakeStamp(item.getCouponId(),item.getStoreId(), Integer.parseInt(numInput.getText().toString()), passwordInput.getText().toString());
+
                                                             }
                                                         })
                                                         .build();
-                                                View positiveAction = custom_dialog.getActionButton(DialogAction.POSITIVE);
+                                                final View positiveAction = custom_dialog.getActionButton(DialogAction.POSITIVE);
                                                 numInput = (EditText)custom_dialog.findViewById(R.id.dialog_store_stamp_num);
                                                 passwordInput = (EditText) custom_dialog.findViewById(R.id.dialog_store_password);
+                                                passwordInput.addTextChangedListener(new TextWatcher() {
+                                                    @Override
+                                                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                                                    }
+
+                                                    @Override
+                                                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                        positiveAction.setEnabled(s.toString().trim().length() > 0);
+                                                    }
+
+                                                    @Override
+                                                    public void afterTextChanged(Editable s) {
+                                                    }
+                                                });
+                                                positiveAction.setEnabled(false); // disabled by default
                                                 custom_dialog.show();
-                                                positiveAction.setEnabled(true); // disabled by default
-                                                // couponWork.doMakeStamp(item.getCouponId(), 1);
+
+
                                                 break;
                                             case 1:
 
