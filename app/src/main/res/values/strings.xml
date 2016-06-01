@@ -68,7 +68,7 @@
 
     <!--TODO : Dialog Text-->
     <string name="dialog_delete_contents">쿠폰을 정말 삭제할겁니까?</string>
-
+    <string name="dialog_coupon_use_contents">이 쿠폰을 정말 사용할 겁니까?</string>
 
 
 </resources>

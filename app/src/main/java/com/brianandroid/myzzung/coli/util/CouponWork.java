@@ -96,6 +96,22 @@ public class CouponWork {
     }
 
     /**
+     * 쿠폰을 사용하는 작업
+     * @param coupon_id
+     */
+    public void useCoupon(int coupon_id){
+        builder.setCustomAttribute("coupon_id", coupon_id);
+        Log.d(TAG, "before network : "+builder.build().toString());
+        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
+                SystemMain.URL.URL_COUPON_USE,
+                builder.build(),
+                useCouponSuccessListener(),
+                networkErrorListener());
+
+        queue.add(myReq);
+    }
+
+    /**
      * 쿠폰 내용물을 보는 성공리스너
      * updateCouponInfo() 에서 사용
      * @return
@@ -183,6 +199,27 @@ public class CouponWork {
                 Log.d(TAG, response.toString());
                 try {
                     if(response.getBoolean("delete_state")){
+                        Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context, response.getString("error_message"), Toast.LENGTH_SHORT).show();
+                    }
+                    updateCouponInfo();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
+
+            }
+        };
+    }
+
+    private Response.Listener<JSONObject> useCouponSuccessListener() {
+        return new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+                try {
+                    if(response.getBoolean("coupon_use")){
                         Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(context, response.getString("error_message"), Toast.LENGTH_SHORT).show();
