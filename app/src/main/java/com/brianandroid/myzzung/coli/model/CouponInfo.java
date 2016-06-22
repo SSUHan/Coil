@@ -6,34 +6,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by myZZUNG on 2016. 5. 13..
+ * Created by cksrb on 2016. 6. 22..
  */
-public class StoreInfo {
+public class CouponInfo {
+    private int couponId;
     private int storeId;
     private String storeName;
     private int maxStamp;
+    private int userStamp;
     private String created;
     private String modified;
     private int image;
-    private int userDown;
     // flipType
     private int flipType;
 
-    public static final int STORE_INFO = 1;
-    public static final int COUFON_INFO = 2;
-
-    public StoreInfo(int image_res, String storeName){
+    public CouponInfo(int image_res, String storeName){
         this.image = image_res;
         this.storeName = storeName;
         this.flipType = 0;
     }
 
-    public StoreInfo(JSONObject obj, int flag) throws JSONException {
+    public CouponInfo(JSONObject obj) throws JSONException {
         this.storeId = obj.getInt("store_id");
         this.created = obj.getString("created");
         this.storeName = obj.getString("store_name");
         this.image = R.drawable.logo_sample3;
-        this.userDown = obj.getInt("user_down");
+        this.couponId = obj.getInt("coupon_id");
+        this.userStamp = obj.getInt("current_stamp");
     }
 
     public void flipCard(){
@@ -68,6 +67,14 @@ public class StoreInfo {
         this.maxStamp = maxStamp;
     }
 
+    public int getUserStamp() {
+        return userStamp;
+    }
+
+    public void setUserStamp(int userStamp) {
+        this.userStamp = userStamp;
+    }
+
     public String getCreated() {
         return created;
     }
@@ -98,6 +105,14 @@ public class StoreInfo {
 
     public void setUserDown(int userDown) {
         this.userDown = userDown;
+    }
+
+    public int getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(int couponId) {
+        this.couponId = couponId;
     }
 
     public String showCouponState(){
