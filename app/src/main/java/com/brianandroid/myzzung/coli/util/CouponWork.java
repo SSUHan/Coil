@@ -16,7 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
-import com.brianandroid.myzzung.coli.model.StoreInfo;
+import com.brianandroid.myzzung.coli.model.CouponInfo;
 import com.brianandroid.myzzung.coli.ui.MainActivity;
 import com.brianandroid.myzzung.coli.volley.MyVolley;
 
@@ -111,7 +111,7 @@ public class CouponWork {
                     JSONArray array = response.getJSONArray("coupon_list");
                     for(int i=0; i<array.length();i++){
                         JSONObject obj = array.getJSONObject(i);
-                        app.myCoupons.addItem(new StoreInfo(obj, StoreInfo.COUFON_INFO));
+                        app.myCoupons.addItem(new CouponInfo(obj));
                     }
                     app.myCoupons.notifyAdapter(); // 데이터가 바뀌었으니 어뎁터를 새로 설정해달라고 요청
 

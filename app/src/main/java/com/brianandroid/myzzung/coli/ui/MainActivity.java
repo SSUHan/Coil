@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity
                         JSONArray array = response.getJSONArray("store_list");
                         for(int i=0; i<array.length();i++){
                             JSONObject obj = array.getJSONObject(i);
-                            app.storeAll.addItem(new StoreInfo(obj, StoreInfo.STORE_INFO));
+                            app.storeAll.addItem(new StoreInfo(obj));
                         }
                         app.storeAll.notifyAdapter(); // 데이터가 바뀌었으니 어뎁터를 새로 설정해달라고 요청
 

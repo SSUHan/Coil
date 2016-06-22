@@ -25,7 +25,7 @@ public class StoreInfo {
         this.flipType = 0;
     }
 
-    public StoreInfo(JSONObject obj, int flag) throws JSONException {
+    public StoreInfo(JSONObject obj) throws JSONException {
         this.storeId = obj.getInt("store_id");
         this.created = obj.getString("created");
         this.storeName = obj.getString("store_name");

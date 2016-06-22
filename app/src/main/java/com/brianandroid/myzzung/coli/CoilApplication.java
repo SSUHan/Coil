@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.brianandroid.myzzung.coli.model.StoreInfo;
+import com.brianandroid.myzzung.coli.model.CouponInfo;
 import com.brianandroid.myzzung.coli.util.MyCouponAdapter;
 import com.brianandroid.myzzung.coli.util.StoreSearchAdapter;
 import com.brianandroid.myzzung.coli.util.SystemMain;
@@ -110,7 +111,7 @@ public class CoilApplication extends Application {
      */
     public class MyCoupons{
         private boolean doNetwork;
-        private List<StoreInfo> itemList;
+        private List<CouponInfo> itemList;
         private MyCouponAdapter adapter;
 
         public MyCoupons(){
@@ -128,16 +129,16 @@ public class CoilApplication extends Application {
         public boolean isDoNetwork() {
             return doNetwork;
         }
-        public List<StoreInfo> getItemList() {
+        public List<CouponInfo> getItemList() {
             return itemList;
         }
 
 
-        public void setItemList(List<StoreInfo> itemList) {
+        public void setItemList(List<CouponInfo> itemList) {
             this.itemList = itemList;
         }
 
-        public void addItem(StoreInfo item){
+        public void addItem(CouponInfo item){
             itemList.add(item);
         }
         public void setAdapter(MyCouponAdapter adapter){
