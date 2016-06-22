@@ -16,6 +16,8 @@ public class StoreInfo {
     private String modified;
     private int image;
     private int userDown;
+    // flipType
+    private int flipType;
 
     public StoreInfo(int image_res, String storeName){
         this.image = image_res;
