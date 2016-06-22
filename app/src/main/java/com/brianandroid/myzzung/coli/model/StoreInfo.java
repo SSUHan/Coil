@@ -31,6 +31,15 @@ public class StoreInfo {
     }
 
 
+
+    public void flipCard(){
+        this.flipType = (this.flipType ==0 ? 1 : 0);
+    }
+
+    public int getFlipType(){
+        return this.flipType;
+    }
+
     public int getStoreId() {
         return storeId;
     }
