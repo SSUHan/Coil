@@ -16,13 +16,10 @@ public class StoreInfo {
     private String modified;
     private int image;
     private int userDown;
-    // flipType
-    private int flipType;
 
     public StoreInfo(int image_res, String storeName){
         this.image = image_res;
         this.storeName = storeName;
-        this.flipType = 0;
     }
 
     public StoreInfo(JSONObject obj) throws JSONException {
@@ -33,13 +30,6 @@ public class StoreInfo {
         this.userDown = obj.getInt("user_down");
     }
 
-    public void flipCard(){
-        this.flipType = (this.flipType ==0 ? 1 : 0);
-    }
-
-    public int getFlipType(){
-        return this.flipType;
-    }
 
     public int getStoreId() {
         return storeId;
