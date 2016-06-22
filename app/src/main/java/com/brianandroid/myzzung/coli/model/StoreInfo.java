@@ -19,9 +19,6 @@ public class StoreInfo {
     // flipType
     private int flipType;
 
-    public static final int STORE_INFO = 1;
-    public static final int COUFON_INFO = 2;
-
     public StoreInfo(int image_res, String storeName){
         this.image = image_res;
         this.storeName = storeName;
@@ -98,14 +95,5 @@ public class StoreInfo {
 
     public void setUserDown(int userDown) {
         this.userDown = userDown;
-    }
-
-    public String showCouponState(){
-        String str =  "couponId : "+couponId
-                +"\nstoreId : "+storeId
-                +"\nstoreName : "+storeName
-                +"\ncurrent_stamp : "+userStamp
-                +"\ncreated : "+created;
-        return str;
     }
 }

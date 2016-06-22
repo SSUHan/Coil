@@ -99,14 +99,6 @@ public class CouponInfo {
         this.image = image;
     }
 
-    public int getUserDown() {
-        return userDown;
-    }
-
-    public void setUserDown(int userDown) {
-        this.userDown = userDown;
-    }
-
     public int getCouponId() {
         return couponId;
     }

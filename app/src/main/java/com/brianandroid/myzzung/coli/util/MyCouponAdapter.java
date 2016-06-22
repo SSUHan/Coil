@@ -27,6 +27,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.brianandroid.myzzung.coli.CoilApplication;
 import com.brianandroid.myzzung.coli.R;
+import com.brianandroid.myzzung.coli.model.CouponInfo;
 import com.brianandroid.myzzung.coli.model.StoreInfo;
 import com.brianandroid.myzzung.coli.ui.PresentActivity;
 import com.brianandroid.myzzung.coli.volley.MyVolley;
@@ -41,14 +42,14 @@ import java.util.List;
 public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHolder> {
 
     private Context context;
-    List<StoreInfo> items;
+    List<CouponInfo> items;
     int item_layout;
     private CoilApplication app;
 
     private EditText passwordInput; // 도장 증가할때 가게 비밀번호
     private EditText numInput; // 도장 증가할때 도장 갯수
 
-    public MyCouponAdapter(Context context, List<StoreInfo> items, int item_layout) {
+    public MyCouponAdapter(Context context, List<CouponInfo> items, int item_layout) {
         this.context = context;
         this.items = items;
         this.item_layout = item_layout;
@@ -71,7 +72,7 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final StoreInfo item = items.get(position);
+        final CouponInfo item = items.get(position);
         Log.d("holder.getItemType", holder.getItemViewType() + "");
         switch (holder.getItemViewType()) {
             case 0:
