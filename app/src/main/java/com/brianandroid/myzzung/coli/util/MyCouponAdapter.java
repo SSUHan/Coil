@@ -132,7 +132,19 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
 
                                                 break;
                                             case 1:
-
+                                                new MaterialDialog.Builder(context)
+                                                        .title("쿠폰사용")
+                                                        .content(R.string.dialog_coupon_use_contents)
+                                                        .positiveText(R.string.btn_positive_text)
+                                                        .negativeText(R.string.btn_negative_text)
+                                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                            @Override
+                                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                                couponWork.useCoupon(item.getCouponId());
+                                                            }
+                                                        })
+                                                        .theme(Theme.DARK)
+                                                        .show();
                                                 break;
                                             case 2:
                                                 Intent intent = new Intent(context, PresentActivity.class);
@@ -143,18 +155,18 @@ public class MyCouponAdapter extends RecyclerView.Adapter<MyCouponAdapter.ViewHo
                                                 break;
                                             case 3:
                                                 new MaterialDialog.Builder(context)
-                                                        .title("쿠폰삭제")
-                                                        .content(R.string.dialog_delete_contents)
-                                                        .positiveText(R.string.btn_positive_text)
-                                                        .negativeText(R.string.btn_negative_text)
-                                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                                            @Override
-                                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                                couponWork.deleteCoupon(item.getCouponId(), item.getStoreId());
-                                                            }
-                                                        })
-                                                        .theme(Theme.DARK)
-                                                        .show();
+                                                    .title("쿠폰삭제")
+                                                    .content(R.string.dialog_delete_contents)
+                                                    .positiveText(R.string.btn_positive_text)
+                                                    .negativeText(R.string.btn_negative_text)
+                                                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                        @Override
+                                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                            couponWork.deleteCoupon(item.getCouponId(), item.getStoreId());
+                                                        }
+                                                    })
+                                                    .theme(Theme.DARK)
+                                                    .show();
 
                                                 break;
 
