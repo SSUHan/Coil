@@ -36,4 +36,7 @@ captures/
 /.idea/libraries
 .DS_Store
 
+*.iml
+.idea/
+
 
