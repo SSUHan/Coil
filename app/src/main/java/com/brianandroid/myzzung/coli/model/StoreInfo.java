@@ -20,6 +20,7 @@ public class StoreInfo {
     private int userDown;
     // flipType
     private int flipType;
+    //ignore
 
     public static final int STORE_INFO = 1;
     public static final int COUFON_INFO = 2;
