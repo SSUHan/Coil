@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new HomeFragment();
             title = getString(R.string.nav_home);
         } else if (id == R.id.nav_ranking) {
-            fragment = new CouponFragment();
+            fragment = new RankingFragment();
             title = getString(R.string.nav_ranking);
             if(app.myCoupons.isDoNetwork()){
                 CouponWork couponWork = new CouponWork(getApplicationContext());
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity
             }
 
         } else if (id == R.id.nav_friend) {
-            fragment = new SearchFragment();
+            fragment = new FriendFragment();
             title = getString(R.string.nav_friend);
             if(app.storeAll.isDoStoreListAll()){
 
