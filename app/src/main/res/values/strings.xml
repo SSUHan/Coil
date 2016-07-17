@@ -10,8 +10,8 @@
 
     <!-- TODO: nav items strings -->
     <string name="nav_home">전체화면</string>
-    <string name="nav_mycoupon">내 쿠폰함</string>
-    <string name="nav_search">검색</string>
+    <string name="nav_ranking">명예의 전당</string>
+    <string name="nav_friend">친구</string>
     <string name="nav_settings">설정</string>
     <string name="nav_community">커뮤니티</string>
     <string name="title_activity_login">접속하기</string>

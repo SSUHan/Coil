@@ -8,13 +8,13 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/nav_home" />
         <item
-            android:id="@+id/nav_mycoupon"
+            android:id="@+id/nav_ranking"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/nav_mycoupon" />
+            android:title="@string/nav_ranking" />
         <item
-            android:id="@+id/nav_search"
+            android:id="@+id/nav_friend"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/nav_search" />
+            android:title="@string/nav_friend" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
