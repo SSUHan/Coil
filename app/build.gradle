@@ -6,7 +6,7 @@ android {
     buildToolsVersion "24.0.0 rc2"
 
     defaultConfig {
-        applicationId "com.brianandroid.myzzung.coli"
+        applicationId "com.miniandroid.myzzung.coli"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

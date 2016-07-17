@@ -141,20 +141,26 @@ public class LoginActivity extends AppCompatActivity {
 //            showProgress(true);
 //            mAuthTask = new UserLoginTask(email, password);
 //            mAuthTask.execute((Void) null);
-            final RequestQueue queue = MyVolley.getInstance(getApplicationContext()).getRequestQueue();
 
-                CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
-                builder.setCustomAttribute("user_id", email)
-                        .setCustomAttribute("user_pw", password)
-                        .setCustomAttribute("gcm_token", gcm_token);
-                Log.d(TAG, "before network : "+builder.build().toString());
-            JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
-                    SystemMain.URL.URL_LOGIN,
-                    builder.build(),
-                    networkSuccessListener(),
-                    networkErrorListener());
-
-            queue.add(myReq);
+//            final RequestQueue queue = MyVolley.getInstance(getApplicationContext()).getRequestQueue();
+//
+//                CoilRequestBuilder builder = new CoilRequestBuilder(getApplicationContext());
+//                builder.setCustomAttribute("user_id", email)
+//                        .setCustomAttribute("user_pw", password)
+//                        .setCustomAttribute("gcm_token", gcm_token);
+//                Log.d(TAG, "before network : "+builder.build().toString());
+//            JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
+//                    SystemMain.URL.URL_LOGIN,
+//                    builder.build(),
+//                    networkSuccessListener(),
+//                    networkErrorListener());
+//
+//            queue.add(myReq);
+            Toast.makeText(LoginActivity.this, "로그인 되었다", Toast.LENGTH_SHORT).show();
+            app.user_id = email;
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
 
 
         }

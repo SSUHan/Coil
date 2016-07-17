@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "41710498275",
-    "project_id": "coil-60f11"
+    "project_number": "1017274618846",
+    "project_id": "firebase-minicoil1"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:41710498275:android:71a9cddf92be1db4",
+        "mobilesdk_app_id": "1:1017274618846:android:8eefb657d1b45b63",
         "android_client_info": {
-          "package_name": "com.brianandroid.myzzung.coli"
+          "package_name": "com.miniandroid.myzzung.coli"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAxeSiC-93hKqnN0aHUBdNOV197wDUgWEo"
+          "current_key": "AIzaSyDOiSC0zRNLIoVtup1GVGNW9bvbdcTuIn0"
         }
       ],
       "services": {
