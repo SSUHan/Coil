@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.miniandroid.myzzung.coli.CoilApplication;
 import com.miniandroid.myzzung.coli.R;
 import com.miniandroid.myzzung.coli.model.StoreInfo;
+import com.miniandroid.myzzung.coli.model.UserInfo;
 import com.miniandroid.myzzung.coli.volley.MyVolley;
 
 import org.json.JSONArray;
@@ -118,14 +119,14 @@ public class CouponWork {
             public void onResponse(JSONObject response) {
                 Log.d(TAG, response.toString());
                 try {
-                    app.myCoupons.setDoNetwork(false); // 데이터를 받았으니, 더이상 재요청은 하지 않아도 된다
-                    app.myCoupons.listInit();
+                    app.myRankings.setDoNetwork(false); // 데이터를 받았으니, 더이상 재요청은 하지 않아도 된다
+                    app.myRankings.listInit();
                     JSONArray array = response.getJSONArray("coupon_list");
                     for(int i=0; i<array.length();i++){
                         JSONObject obj = array.getJSONObject(i);
-                        app.myCoupons.addItem(new StoreInfo(obj, StoreInfo.COUFON_INFO));
+                        app.myRankings.addItem(new UserInfo(obj));
                     }
-                    app.myCoupons.notifyAdapter(); // 데이터가 바뀌었으니 어뎁터를 새로 설정해달라고 요청
+                    app.myRankings.notifyAdapter(); // 데이터가 바뀌었으니 어뎁터를 새로 설정해달라고 요청
 
 
                 } catch (JSONException e) {

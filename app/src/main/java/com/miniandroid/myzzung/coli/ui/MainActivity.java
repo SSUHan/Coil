@@ -148,10 +148,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_ranking) {
             fragment = new RankingFragment();
             title = getString(R.string.nav_ranking);
-            if(app.myCoupons.isDoNetwork()){
-                CouponWork couponWork = new CouponWork(getApplicationContext());
-                couponWork.updateCouponInfo();
-            }
+//            if(app.myRankings.isDoNetwork()){
+//                CouponWork couponWork = new CouponWork(getApplicationContext());
+//                couponWork.updateCouponInfo();
+//            }
 
         } else if (id == R.id.nav_friend) {
             fragment = new FriendFragment();

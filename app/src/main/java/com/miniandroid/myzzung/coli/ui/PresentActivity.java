@@ -51,9 +51,9 @@ public class PresentActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        MyCouponAdapter adapter = new MyCouponAdapter(app, app.myCoupons.getItemList(), R.layout.fragment_coupon);
-        app.myCoupons.setAdapter(adapter);
-        recyclerView.setAdapter(adapter);
+//        MyCouponAdapter adapter = new MyCouponAdapter(app, app.myRankings.getItemList(), R.layout.fragment_ranking);
+//        app.myRankings.setAdapter(adapter);
+//        recyclerView.setAdapter(adapter);
 
         //검색 버튼에 Listener를 넣습니다. 먼저 아이디 검색을 해서 보낼 대상을 골라야합니다.
         if (button != null) {

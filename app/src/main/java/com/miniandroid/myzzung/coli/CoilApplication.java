@@ -5,7 +5,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.miniandroid.myzzung.coli.model.StoreInfo;
+import com.miniandroid.myzzung.coli.model.UserInfo;
 import com.miniandroid.myzzung.coli.util.MyCouponAdapter;
+import com.miniandroid.myzzung.coli.util.RankingAdapter;
 import com.miniandroid.myzzung.coli.util.StoreSearchAdapter;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class CoilApplication extends Application {
     public boolean debug_mode;
 
     public StoreAll storeAll;
-    public MyCoupons myCoupons;
+    public Ranking myRankings;
 
     @Override
     public void onCreate() {
@@ -53,12 +55,12 @@ public class CoilApplication extends Application {
         }
 
         storeAll = new StoreAll();
-        myCoupons = new MyCoupons();
+        myRankings = new Ranking();
     }
 
     public void doNetworkAgain(){
         storeAll.setDoStoreListAll(true);
-        myCoupons.setDoNetwork(true);
+        myRankings.setDoNetwork(true);
     }
 
     /**
@@ -105,14 +107,14 @@ public class CoilApplication extends Application {
     }
 
     /**
-     * 쿠폰 카드 정보를 저장하는 데이터
+     * 랭킹 정보를 저장하는 데이터
      */
-    public class MyCoupons{
+    public class Ranking {
         private boolean doNetwork;
-        private List<StoreInfo> itemList;
-        private MyCouponAdapter adapter;
+        private List<UserInfo> itemList;
+        private RankingAdapter adapter;
 
-        public MyCoupons(){
+        public Ranking(){
             this.doNetwork = true;
             itemList = new ArrayList<>();
         }
@@ -127,19 +129,19 @@ public class CoilApplication extends Application {
         public boolean isDoNetwork() {
             return doNetwork;
         }
-        public List<StoreInfo> getItemList() {
+        public List<UserInfo> getItemList() {
             return itemList;
         }
 
 
-        public void setItemList(List<StoreInfo> itemList) {
+        public void setItemList(List<UserInfo> itemList) {
             this.itemList = itemList;
         }
 
-        public void addItem(StoreInfo item){
+        public void addItem(UserInfo item){
             itemList.add(item);
         }
-        public void setAdapter(MyCouponAdapter adapter){
+        public void setAdapter(RankingAdapter adapter){
             this.adapter = adapter;
         }
 
