@@ -40,9 +40,10 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(this.item_layout, null);
-        return new ViewHolder(v);
+        View rootView = LayoutInflater.from(context).inflate(item_layout, null, false);
+        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rootView.setLayoutParams(lp);
+        return new ViewHolder(rootView);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
