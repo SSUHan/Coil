@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,10 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton fab2;
     private FloatingActionButton fab3;
 
+    private ImageView img_avata;
+
+    private int level_status = 1;
+
 
 
     public HomeFragment() {
@@ -62,23 +67,51 @@ public class HomeFragment extends Fragment {
         fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
         fab3 = (FloatingActionButton) rootView.findViewById(R.id.fab3);
 
+        img_avata = (ImageView)rootView.findViewById(R.id.img_home_avata);
+
         fab1.setOnClickListener(clickListener);
         fab2.setOnClickListener(clickListener);
         fab3.setOnClickListener(clickListener);
 
+        // 간단한 이름
         home_text = (TextView) rootView.findViewById(R.id.home_text);
         home_text.setText(app.user_id);
+
         Button home_btn = (Button) rootView.findViewById(R.id.home_button);
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
-                        server_url,
-                        new JSONObject(),
-                        networkSuccessListener(),
-                        networkErrorListener());
+//                JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.POST,
+//                        server_url,
+//                        new JSONObject(),
+//                        networkSuccessListener(),
+//                        networkErrorListener());
+//
+//                queue.add(myReq);
 
-                queue.add(myReq);
+                switch (level_status){
+                    case 1:
+                        img_avata.setBackgroundResource(R.drawable.img_avata_lev2);
+                        level_status+=1;
+                        break;
+                    case 2:
+                        img_avata.setBackgroundResource(R.drawable.img_avata_lev3);
+                        level_status+=1;
+                        break;
+                    case 3:
+                        img_avata.setBackgroundResource(R.drawable.img_avata_lev4);
+                        level_status+=1;
+                        break;
+                    case 4:
+                        img_avata.setBackgroundResource(R.drawable.img_avata_lev1);
+                        level_status = 1;
+                        break;
+                    default:
+                        Toast.makeText(getActivity(), "What The !", Toast.LENGTH_SHORT).show();
+                }
+
+
+                home_text.setText("아바타의 레벨이 "+level_status+"가 되었습니다");
 
             }
         });
