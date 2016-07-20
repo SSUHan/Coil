@@ -5,6 +5,8 @@ package com.miniandroid.myzzung.coli.model;
  */
 public class AvatarInfo extends Info {
 
+    public static final String TYPE_CHICKEN = "chicken";
+
     private String type;
     private int level;
 

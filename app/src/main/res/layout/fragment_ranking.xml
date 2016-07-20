@@ -5,6 +5,12 @@
     android:orientation="vertical"
     tools:context=".ui.FriendFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="랭킹 보드"
+        android:textAlignment="center"/>
+
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"

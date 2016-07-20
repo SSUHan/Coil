@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_friend_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="user id"/>
+
+        <TextView
+            android:id="@+id/text_friend_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="points"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_friend_ranking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="ranking"/>
+
+    <Button
+        android:id="@+id/btn_friend_push"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="찌르기"/>
+
+</RelativeLayout>
