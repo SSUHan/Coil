@@ -47,7 +47,7 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_gravity="center"
-            android:background="@drawable/img_avata_lev1"/>
+            android:background="@drawable/img_avatar_lev1"/>
 
         <TextView
             android:layout_weight="1"

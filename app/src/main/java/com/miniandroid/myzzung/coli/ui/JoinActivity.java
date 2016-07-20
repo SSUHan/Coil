@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.miniandroid.myzzung.coli.BaseActivity;
 import com.miniandroid.myzzung.coli.R;
 import com.miniandroid.myzzung.coli.util.CoilRequestBuilder;
 import com.miniandroid.myzzung.coli.util.SystemMain;
@@ -25,7 +26,7 @@ import com.miniandroid.myzzung.coli.volley.MyVolley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JoinActivity extends AppCompatActivity {
+public class JoinActivity extends BaseActivity {
 
     private final String TAG = "JoinActivity";
 

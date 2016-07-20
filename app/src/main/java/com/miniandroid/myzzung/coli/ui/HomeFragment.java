@@ -11,13 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.miniandroid.myzzung.coli.BaseFragment;
 import com.miniandroid.myzzung.coli.CoilApplication;
 import com.miniandroid.myzzung.coli.R;
 import com.miniandroid.myzzung.coli.volley.MyVolley;
@@ -28,7 +27,7 @@ import org.json.JSONObject;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private CoilApplication app;
     private TextView home_text = null;
@@ -40,7 +39,9 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton fab2;
     private FloatingActionButton fab3;
 
-    private ImageView img_avata;
+    private ImageView img_avatar;
+
+    private Button home_btn;
 
     private int level_status = 1;
 
@@ -48,6 +49,21 @@ public class HomeFragment extends Fragment {
 
     public HomeFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    protected void init(View rootView) {
+        menuRed = (FloatingActionMenu) rootView.findViewById(R.id.menu_red);
+
+        fab1 = (FloatingActionButton) rootView.findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
+        fab3 = (FloatingActionButton) rootView.findViewById(R.id.fab3);
+
+        img_avatar = (ImageView)rootView.findViewById(R.id.img_home_avata);
+
+        home_text = (TextView) rootView.findViewById(R.id.home_text);
+
+        home_btn = (Button) rootView.findViewById(R.id.home_button);
     }
 
 
@@ -61,23 +77,16 @@ public class HomeFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
 
-        menuRed = (FloatingActionMenu) rootView.findViewById(R.id.menu_red);
-
-        fab1 = (FloatingActionButton) rootView.findViewById(R.id.fab1);
-        fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
-        fab3 = (FloatingActionButton) rootView.findViewById(R.id.fab3);
-
-        img_avata = (ImageView)rootView.findViewById(R.id.img_home_avata);
+        init(rootView);
 
         fab1.setOnClickListener(clickListener);
         fab2.setOnClickListener(clickListener);
         fab3.setOnClickListener(clickListener);
 
         // 간단한 이름
-        home_text = (TextView) rootView.findViewById(R.id.home_text);
         home_text.setText(app.user_id);
 
-        Button home_btn = (Button) rootView.findViewById(R.id.home_button);
+        // 간단한 버튼
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,29 +97,27 @@ public class HomeFragment extends Fragment {
 //                        networkErrorListener());
 //
 //                queue.add(myReq);
-
+                showProgress(2);
                 switch (level_status){
                     case 1:
-                        img_avata.setBackgroundResource(R.drawable.img_avata_lev2);
+                        img_avatar.setBackgroundResource(R.drawable.img_avatar_lev2);
                         level_status+=1;
                         break;
                     case 2:
-                        img_avata.setBackgroundResource(R.drawable.img_avata_lev3);
+                        img_avatar.setBackgroundResource(R.drawable.img_avatar_lev3);
                         level_status+=1;
                         break;
                     case 3:
-                        img_avata.setBackgroundResource(R.drawable.img_avata_lev4);
+                        img_avatar.setBackgroundResource(R.drawable.img_avatar_lev4);
                         level_status+=1;
                         break;
                     case 4:
-                        img_avata.setBackgroundResource(R.drawable.img_avata_lev1);
+                        img_avatar.setBackgroundResource(R.drawable.img_avatar_lev1);
                         level_status = 1;
                         break;
                     default:
                         Toast.makeText(getActivity(), "What The !", Toast.LENGTH_SHORT).show();
                 }
-
-
                 home_text.setText("아바타의 레벨이 "+level_status+"가 되었습니다");
 
             }
@@ -125,8 +132,6 @@ public class HomeFragment extends Fragment {
 //                        // Do something
 //                    }
 //                }).show();
-
-
 
         return rootView;
     }
@@ -171,5 +176,6 @@ public class HomeFragment extends Fragment {
             }
         }
     };
+
 
 }

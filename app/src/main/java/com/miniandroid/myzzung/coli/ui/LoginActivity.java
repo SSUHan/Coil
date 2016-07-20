@@ -23,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.miniandroid.myzzung.coli.BaseActivity;
 import com.miniandroid.myzzung.coli.CoilApplication;
 import com.miniandroid.myzzung.coli.R;
 import com.miniandroid.myzzung.coli.gcm.QuickstartPreferences;
@@ -36,7 +37,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private final String TAG = "LoginActivity";
 
@@ -156,10 +157,12 @@ public class LoginActivity extends AppCompatActivity {
 //                    networkErrorListener());
 //
 //            queue.add(myReq);
+            //showProgressDialog("로그인", "로그인 중입니다");
             Toast.makeText(LoginActivity.this, "로그인 되었다", Toast.LENGTH_SHORT).show();
             app.user_id = email;
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
+            //dismissDialog();
             finish();
 
 

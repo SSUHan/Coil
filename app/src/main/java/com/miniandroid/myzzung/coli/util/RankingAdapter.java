@@ -12,10 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.miniandroid.myzzung.coli.R;
-import com.miniandroid.myzzung.coli.model.StoreInfo;
 import com.miniandroid.myzzung.coli.model.UserInfo;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -52,7 +49,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHold
         final UserInfo item = list.get(position);
         holder.text_id.setText(item.getUserId());
         holder.text_name.setText(item.getUserName());
-        holder.text_rank.setText(item.getRank()+"위");
+        holder.text_rank.setText(item.getPoint()+"위");
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

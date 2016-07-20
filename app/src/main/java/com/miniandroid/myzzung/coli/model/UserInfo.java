@@ -8,17 +8,17 @@ import org.json.JSONObject;
 public class UserInfo extends Info {
 
     private String userId;
-    private String userName;
-    private int rank;
+    private String userName; //
+    private int point; //  랭킹 점수
 
     public UserInfo(){
 
     }
 
-    public UserInfo(String id, String name, int rank){
+    public UserInfo(String id, String name, int point){
         userId = id;
         userName = name;
-        this.rank = rank;
+        this.point = point;
     }
 
     public UserInfo(JSONObject obj){
@@ -26,7 +26,7 @@ public class UserInfo extends Info {
     }
 
     public String show(){
-        return "user_id :"+userId+" name : "+userName+" rank : "+rank;
+        return "user_id :"+userId+" name : "+userName+" point : "+ point;
     }
 
     public String getUserId() {
@@ -45,11 +45,11 @@ public class UserInfo extends Info {
         this.userName = userName;
     }
 
-    public int getRank() {
-        return rank;
+    public int getPoint() {
+        return point;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setPoint(int point) {
+        this.point = point;
     }
 }
