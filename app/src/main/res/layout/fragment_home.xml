@@ -1,11 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     tools:context="com.miniandroid.myzzung.coli.ui.HomeFragment">
 
     <LinearLayout
+        android:id="@+id/layout_home_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
@@ -34,29 +35,78 @@
 
     </LinearLayout>
 
-
-    <ImageView
-        android:layout_weight="3"
-        android:id="@+id/img_home_abata"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:background="@drawable/img_abata_lv1"/>
-
-    <TextView
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:id="@+id/home_text"
+    <LinearLayout
+        android:layout_below="@id/layout_home_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="home fragment" />
+        android:orientation="vertical">
 
-    <Button
-        android:layout_weight="1"
-        android:id="@+id/home_button"
+        <ImageView
+            android:layout_weight="3"
+            android:id="@+id/img_home_abata"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:background="@drawable/img_abata_lv1"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:id="@+id/home_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="home fragment" />
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/home_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="통신시작하기"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu_red"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="통신시작하기"
-        android:visibility="visible" />
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        fab:menu_labels_ellipsize="end"
+        fab:menu_labels_singleLine="true"
+        fab:menu_backgroundColor="#ccffffff"
+        fab:menu_fab_label="Menu label">
 
-</LinearLayout>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            fab:fab_size="mini"
+            fab:fab_label="Disabled" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            fab:fab_size="mini"
+            fab:fab_label="Remove button" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            fab:fab_size="mini"
+            fab:fab_label="Restore Button" />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+</RelativeLayout>

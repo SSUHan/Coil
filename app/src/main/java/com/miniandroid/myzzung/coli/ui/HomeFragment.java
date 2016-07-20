@@ -15,6 +15,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.miniandroid.myzzung.coli.CoilApplication;
 import com.miniandroid.myzzung.coli.R;
 import com.miniandroid.myzzung.coli.volley.MyVolley;
@@ -28,10 +30,15 @@ import org.json.JSONObject;
 public class HomeFragment extends Fragment {
 
     private CoilApplication app;
-
     private TextView home_text = null;
 
     private final String server_url = "http://ljs93kr.cafe24.com/coil/test_dir/coil_test.php";
+
+    private FloatingActionMenu menuRed;
+    private FloatingActionButton fab1;
+    private FloatingActionButton fab2;
+    private FloatingActionButton fab3;
+
 
 
     public HomeFragment() {
@@ -48,6 +55,16 @@ public class HomeFragment extends Fragment {
         final RequestQueue queue = MyVolley.getInstance(getActivity()).getRequestQueue();
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
+
+        menuRed = (FloatingActionMenu) rootView.findViewById(R.id.menu_red);
+
+        fab1 = (FloatingActionButton) rootView.findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
+        fab3 = (FloatingActionButton) rootView.findViewById(R.id.fab3);
+
+        fab1.setOnClickListener(clickListener);
+        fab2.setOnClickListener(clickListener);
+        fab3.setOnClickListener(clickListener);
 
         home_text = (TextView) rootView.findViewById(R.id.home_text);
         home_text.setText(app.user_id);
@@ -103,5 +120,23 @@ public class HomeFragment extends Fragment {
             }
         };
     }
+
+    private View.OnClickListener clickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.fab1:
+                    Toast.makeText(getActivity(), "fab1", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.fab2:
+                    Toast.makeText(getActivity(), "fab2", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.fab3:
+                    Toast.makeText(getActivity(), "fab3", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 
 }
